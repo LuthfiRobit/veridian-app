@@ -1,0 +1,456 @@
+/* ============================================
+   Error Pages Custom Styles
+   ============================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.error-container {
+    display: flex;
+    height: 100vh;
+}
+
+/* ============================================
+   Left Side - Error Code Panel
+   ============================================ */
+
+.error-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Animated Grid Background */
+.error-left::before {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: moveGrid 20s linear infinite;
+}
+
+@keyframes moveGrid {
+    0% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(50px, 50px);
+    }
+}
+
+/* Error Code */
+.error-code-large {
+    font-size: 180px;
+    font-weight: 900;
+    line-height: 1;
+    position: relative;
+    z-index: 2;
+    text-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    animation: fadeInScale 0.8s ease-out;
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Error Icon */
+.error-icon-large {
+    font-size: 100px;
+    margin-bottom: 30px;
+    position: relative;
+    z-index: 2;
+}
+
+/* ============================================
+   Icon Animations
+   ============================================ */
+
+/* Float Animation - 404 */
+.error-icon-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+/* Pulse Animation - 403 */
+.error-icon-pulse {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* Swing Animation - 419 */
+.error-icon-swing {
+    animation: swing 2s ease-in-out infinite;
+}
+
+@keyframes swing {
+    0%, 100% {
+        transform: rotate(-5deg);
+    }
+    50% {
+        transform: rotate(5deg);
+    }
+}
+
+/* Shake Animation - 500 */
+.error-icon-shake {
+    animation: shake 3s ease-in-out infinite;
+}
+
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    10%, 30%, 50%, 70%, 90% {
+        transform: translateX(-5px);
+    }
+    20%, 40%, 60%, 80% {
+        transform: translateX(5px);
+    }
+}
+
+/* Rotate Animation - 503 */
+.error-icon-rotate {
+    animation: rotate 4s linear infinite;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ============================================
+   Gradient Backgrounds
+   ============================================ */
+
+.error-bg-404 {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.error-bg-403 {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+}
+
+.error-bg-419 {
+    background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+}
+
+.error-bg-500 {
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+}
+
+.error-bg-503 {
+    background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+}
+
+/* ============================================
+   Right Side - Message Panel
+   ============================================ */
+
+.error-right {
+    flex: 1;
+    background: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 80px;
+    animation: slideInRight 0.8s ease-out;
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Typography */
+.error-title {
+    font-size: 48px;
+    font-weight: 700;
+    color: #2d3748;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.error-subtitle {
+    font-size: 20px;
+    color: #718096;
+    margin-bottom: 40px;
+    line-height: 1.6;
+    max-width: 500px;
+}
+
+/* ============================================
+   Buttons
+   ============================================ */
+
+.btn-group-custom {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.btn-primary-custom {
+    border: none;
+    padding: 16px 40px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-secondary-custom {
+    border: none;
+    padding: 16px 40px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Button Colors */
+.btn-404 {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.btn-404:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    color: white;
+}
+
+.btn-403 {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+}
+
+.btn-403:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+    color: white;
+}
+
+.btn-419-primary {
+    background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+    box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+}
+
+.btn-419-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 193, 7, 0.4);
+    color: white;
+}
+
+.btn-419-secondary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.btn-419-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    color: white;
+}
+
+.btn-500 {
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+}
+
+.btn-500:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+    color: white;
+}
+
+/* ============================================
+   Info Box
+   ============================================ */
+
+.error-info {
+    margin-top: 40px;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    max-width: 500px;
+}
+
+.error-info-404 {
+    border-left: 4px solid #667eea;
+}
+
+.error-info-403 {
+    border-left: 4px solid #dc3545;
+}
+
+.error-info-419 {
+    border-left: 4px solid #ffc107;
+}
+
+.error-info-500 {
+    border-left: 4px solid #e74c3c;
+}
+
+.error-info-503 {
+    border-left: 4px solid #6c757d;
+}
+
+.error-info-title {
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 8px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.error-info-text {
+    color: #718096;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* ============================================
+   Maintenance Badge (503)
+   ============================================ */
+
+.maintenance-badge {
+    background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+    color: white;
+    padding: 16px 35px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 600;
+    font-size: 16px;
+    box-shadow: 0 4px 15px rgba(23, 162, 184, 0.3);
+    animation: badgePulse 2s ease-in-out infinite;
+}
+
+@keyframes badgePulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.02);
+    }
+}
+
+/* ============================================
+   Responsive Design
+   ============================================ */
+
+@media (max-width: 992px) {
+    .error-container {
+        flex-direction: column;
+    }
+
+    .error-left {
+        flex: 0 0 40%;
+    }
+
+    .error-right {
+        flex: 1;
+        padding: 40px;
+    }
+
+    .error-code-large {
+        font-size: 120px;
+    }
+
+    .error-title {
+        font-size: 36px;
+    }
+}
+
+@media (max-width: 576px) {
+    .error-right {
+        padding: 30px 20px;
+    }
+
+    .error-code-large {
+        font-size: 80px;
+    }
+
+    .error-icon-large {
+        font-size: 60px;
+    }
+
+    .error-title {
+        font-size: 28px;
+    }
+
+    .error-subtitle {
+        font-size: 16px;
+    }
+
+    .btn-group-custom {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .btn-primary-custom, .btn-secondary-custom {
+        width: 100%;
+        justify-content: center;
+    }
+}

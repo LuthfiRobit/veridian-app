@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="en">
+<!-- [Head] start -->
+
+<head>
+    <title>Dashboard | Veridian CMS</title>
+    <!-- [Meta] -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="Veridian Solutions Content Management System" />
+    <meta name="author" content="Veridian Dev Team" />
+
+    <!-- [Favicon] icon -->
+    <link rel="icon" href="../assets/images/favicon.svg" type="image/x-icon" />
+    <!-- [Google Font] Family -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+        id="main-font-link" />
+    <!-- [Tabler Icons] -->
+    <link rel="stylesheet" href="../assets/fonts/tabler-icons.min.css" />
+    <!-- [Feather Icons] -->
+    <link rel="stylesheet" href="../assets/fonts/feather.css" />
+    <!-- [Font Awesome Icons] -->
+    <link rel="stylesheet" href="../assets/fonts/fontawesome.css" />
+    <!-- [Material Icons] -->
+    <link rel="stylesheet" href="../assets/fonts/material.css" />
+    <!-- [Template CSS Files] -->
+    <link rel="stylesheet" href="../assets/css/style.css" id="main-style-link" />
+    <link rel="stylesheet" href="../assets/css/style-preset.css" />
+    <!-- [Custom CSS] -->
+    <link rel="stylesheet" href="../assets/css/custom-style.css" />
+
+</head>
+<!-- [Head] end -->
+<!-- [Body] Start -->
+
+<body>
+    <!-- [ Pre-loader ] start -->
+    <div class="loader-bg">
+        <div class="loader-track">
+            <div class="loader-fill"></div>
+        </div>
+    </div>
+    <!-- [ Pre-loader ] End -->
+
+    <!-- [ Sidebar Menu ] start -->
+    <nav class="pc-sidebar">
+        <div class="navbar-wrapper">
+            <div class="m-header">
+                <a href="index.html" class="b-brand text-primary">
+                    <h3 class="m-0 fw-bold text-primary">Veridian CMS</h3>
+                </a>
+            </div>
+            <div class="navbar-content">
+                <ul class="pc-navbar">
+                    <li class="pc-item pc-caption"><label>Overview</label><i class="ti ti-dashboard"></i></li>
+                    <li class="pc-item active"><a href="index.html" class="pc-link"><span class="pc-micon"><i
+                                    class="ti ti-dashboard"></i></span><span class="pc-mtext">Dashboard</span></a></li>
+
+                    <li class="pc-item pc-caption"><label>Content Management</label><i class="ti ti-layout-grid"></i>
+                    </li>
+                    <li class="pc-item"><a href="content-hero.html" class="pc-link"><span class="pc-micon"><i
+                                    class="ti ti-photo"></i></span><span class="pc-mtext">Hero Sections</span></a></li>
+                    <li class="pc-item"><a href="content-about.html" class="pc-link"><span class="pc-micon"><i
+                                    class="ti ti-info-circle"></i></span><span class="pc-mtext">About Us</span></a></li>
+                    <li class="pc-item"><a href="content-why.html" class="pc-link"><span class="pc-micon"><i
+                                    class="ti ti-star"></i></span><span class="pc-mtext">Why Choose Us</span></a></li>
+                    <li class="pc-item"><a href="content-testimonials.html" class="pc-link"><span class="pc-micon"><i
+                                    class="ti ti-message-circle-2"></i></span><span
+                                class="pc-mtext">Testimonials</span></a></li>
+                    <li class="pc-item"><a href="content-faq.html" class="pc-link"><span class="pc-micon"><i
+                                    class="ti ti-help"></i></span><span class="pc-mtext">FAQ</span></a></li>
+
+                    <li class="pc-item pc-caption"><label>Services</label><i class="ti ti-briefcase"></i></li>
+                    <li class="pc-item pc-hasmenu">
+                        <a href="#!" class="pc-link"><span class="pc-micon"><i class="ti ti-briefcase"></i></span><span
+                                class="pc-mtext">Services</span><span class="pc-arrow"><i
+                                    class="ti ti-chevron-right"></i></span></a>
+                        <ul class="pc-submenu">
+                            <li class="pc-item"><a class="pc-link" href="services.html">All Services</a></li>
+                            <li class="pc-item"><a class="pc-link" href="services-features.html">Service Features</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="pc-item pc-caption"><label>Portfolio</label><i class="ti ti-photo"></i></li>
+                    <li class="pc-item pc-hasmenu">
+                        <a href="#!" class="pc-link"><span class="pc-micon"><i class="ti ti-photo"></i></span><span
+                                class="pc-mtext">Portfolio</span><span class="pc-arrow"><i
+                                    class="ti ti-chevron-right"></i></span></a>
+                        <ul class="pc-submenu">
+                            <li class="pc-item"><a class="pc-link" href="portfolio.html">Projects</a></li>
+                            <li class="pc-item"><a class="pc-link" href="portfolio-categories.html">Categories</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="pc-item pc-caption"><label>News & Articles</label><i class="ti ti-news"></i></li>
+                    <li class="pc-item pc-hasmenu">
+                        <a href="#!" class="pc-link"><span class="pc-micon"><i class="ti ti-news"></i></span><span
+                                class="pc-mtext">Blog</span><span class="pc-arrow"><i
+                                    class="ti ti-chevron-right"></i></span></a>
+                        <ul class="pc-submenu">
+                            <li class="pc-item"><a class="pc-link" href="blog.html">Posts</a></li>
+                            <li class="pc-item"><a class="pc-link" href="blog-categories.html">Categories</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="pc-item pc-caption"><label>Company Profile</label><i class="ti ti-building"></i></li>
+                    <li class="pc-item"><a href="company-static.html" class="pc-link"><span class="pc-micon"><i
+                                    class="ti ti-file-text"></i></span><span class="pc-mtext">Static Pages</span></a>
+                    </li>
+                    <li class="pc-item"><a href="company-team.html" class="pc-link"><span class="pc-micon"><i
+                                    class="ti ti-users"></i></span><span class="pc-mtext">Team Members</span></a></li>
+
+                    <li class="pc-item pc-caption"><label>Inquiries</label><i class="ti ti-message"></i></li>
+                    <li class="pc-item"><a href="inquiries.html" class="pc-link"><span class="pc-micon"><i
+                                    class="ti ti-message"></i></span><span class="pc-mtext">Messages</span></a></li>
+
+                    <li class="pc-item pc-caption"><label>System Settings</label><i class="ti ti-settings"></i></li>
+                    <li class="pc-item"><a href="settings-system.html" class="pc-link"><span class="pc-micon"><i
+                                    class="ti ti-settings"></i></span><span class="pc-mtext">Global Settings</span></a>
+                    </li>
+                    <li class="pc-item"><a href="settings-users.html" class="pc-link"><span class="pc-micon"><i
+                                    class="ti ti-lock"></i></span><span class="pc-mtext">RBAC (User & Roles)</span></a>
+                    </li>
+                    <li class="pc-item"><a href="settings-security.html" class="pc-link"><span class="pc-micon"><i
+                                    class="ti ti-shield-lock"></i></span><span class="pc-mtext">Security</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- [ Sidebar Menu ] end -->
+
+    <!-- [ Header Topbar ] start -->
+    <header class="pc-header">
+        <div class="header-wrapper">
+            <!-- [Mobile Media Block] start -->
+            <div class="me-auto pc-mob-drp">
+                <ul class="list-unstyled">
+                    <li class="pc-h-item header-mobile-collapse">
+                        <a href="#" class="pc-head-link head-link-secondary ms-0" id="sidebar-hide">
+                            <i class="ti ti-menu-2"></i>
+                        </a>
+                    </li>
+                    <li class="pc-h-item pc-sidebar-popup">
+                        <a href="#" class="pc-head-link head-link-secondary ms-0" id="mobile-collapse">
+                            <i class="ti ti-menu-2"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- [Mobile Media Block end] -->
+
+            <div class="ms-auto">
+                <ul class="list-unstyled">
+
+                    <!-- Notification Dropdown -->
+                    <li class="dropdown pc-h-item">
+                        <a class="pc-head-link head-link-secondary dropdown-toggle arrow-none me-0"
+                            data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false"
+                            aria-expanded="false">
+                            <i class="ti ti-bell"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-notification dropdown-menu-end pc-h-dropdown">
+                            <div class="dropdown-header">
+                                <a href="#!" class="link-primary float-end text-decoration-underline">Mark as all
+                                    read</a>
+                                <h5>
+                                    Notifications
+                                    <span class="badge bg-warning rounded-pill ms-1">2</span>
+                                </h5>
+                            </div>
+                            <div class="dropdown-header px-0 text-wrap header-notification-scroll position-relative"
+                                style="max-height: calc(100vh - 215px)">
+                                <div class="list-group list-group-flush w-100">
+                                    <div class="list-group-item list-group-item-action">
+                                        <div class="d-flex">
+                                            <div class="flex-shrink-0">
+                                                <div class="user-avtar bg-light-warning"><i class="ti ti-message"></i>
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1 ms-1">
+                                                <span class="float-end text-muted">2 min ago</span>
+                                                <h5>New Inquiry</h5>
+                                                <p class="text-body fs-6">Contact form submission from John Doe.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <!-- User Profile -->
+                    <li class="dropdown pc-h-item header-user-profile">
+                        <a class="pc-head-link head-link-primary dropdown-toggle arrow-none me-0"
+                            data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false"
+                            aria-expanded="false">
+                            <img src="../assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar" />
+                            <span>
+                                <i class="ti ti-settings"></i>
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-user-profile dropdown-menu-end pc-h-dropdown">
+                            <div class="dropdown-header">
+                                <h4>
+                                    Hello,
+                                    <span class="small text-muted">Super Admin</span>
+                                </h4>
+                                <p class="text-muted">Administrator</p>
+                                <hr />
+                                <a href="settings-users.html" class="dropdown-item">
+                                    <i class="ti ti-user"></i>
+                                    <span>My Profile</span>
+                                </a>
+                                <a href="#" class="dropdown-item">
+                                    <i class="ti ti-logout"></i>
+                                    <span>Logout</span>
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <!-- [ Header ] end -->
+
+    <!-- [ Main Content ] start -->
+    <div class="pc-container">
+        <div class="pc-content">
+            <!-- [ Main Content ] start -->
+
+            <!-- Welcome Banner -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h3 class="fw-bold text-primary">Admin Dashboard</h3>
+                    <p class="text-muted">Veridian Solutions Content Management System.</p>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <!-- Statistic Cards -->
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-primary text-white dashnum-card overflow-hidden">
+                        <span class="round small"></span>
+                        <span class="round big"></span>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="avtar avtar-lg bg-light-primary">
+                                        <i class="ti ti-briefcase text-primary"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="text-white d-block f-34 f-w-500 my-2">
+                                12
+                            </span>
+                            <p class="mb-0 opacity-75">Total Services</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-secondary-dark text-white dashnum-card overflow-hidden">
+                        <span class="round small"></span>
+                        <span class="round big"></span>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="avtar avtar-lg bg-light-secondary">
+                                        <i class="ti ti-folder text-secondary"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="text-white d-block f-34 f-w-500 my-2">
+                                45
+                            </span>
+                            <p class="mb-0 opacity-75">Active Projects</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-warning text-white dashnum-card overflow-hidden">
+                        <span class="round small"></span>
+                        <span class="round big"></span>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="avtar avtar-lg bg-light-warning">
+                                        <i class="ti ti-message text-warning"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="text-white d-block f-34 f-w-500 my-2">
+                                5
+                            </span>
+                            <p class="mb-0 opacity-75">Unread Inquiries</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-success text-white dashnum-card overflow-hidden">
+                        <span class="round small"></span>
+                        <span class="round big"></span>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="avtar avtar-lg bg-light-success">
+                                        <i class="ti ti-eye text-success"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="text-white d-block f-34 f-w-500 my-2">
+                                1.2K
+                            </span>
+                            <p class="mb-0 opacity-75">Monthly Visitors</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Chart -->
+                <div class="col-xl-8 col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Traffic Overview (Visitors vs Inquiries)</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="growthchart"></div> <!-- Placeholder for ApexChart -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pie Chart / Status -->
+                <div class="col-xl-4 col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Project Categories</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="statuschart" style="min-height: 180px;"></div> <!-- Placeholder for Pie Chart -->
+                            <div class="text-center mt-3">
+                                <p class="mb-1 text-truncate"><span class="badge bg-success me-2">●</span> Translation:
+                                    50%</p>
+                                <p class="mb-1 text-truncate"><span class="badge bg-secondary me-2">●</span>
+                                    Localization: 30%</p>
+                                <p class="mb-1 text-truncate"><span class="badge bg-warning me-2">●</span> Others: 20%
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Data Table -->
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5>Recent Inquiries</h5>
+                            <a href="inquiries.html" class="btn btn-sm btn-primary">View All</a>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-hover mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Sender</th>
+                                            <th>Service Interest</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>2024-02-13</td>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div>
+                                                        <h6 class="m-0">John Doe</h6>
+                                                        <span class="text-muted f-12">john@example.com</span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>Legal Translation</td>
+                                            <td><span class="badge bg-light-warning text-warning">Unread</span></td>
+                                            <td>
+                                                <a href="#" class="btn btn-icon btn-light-primary btn-sm"><i
+                                                        class="ti ti-eye"></i></a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2024-02-12</td>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div>
+                                                        <h6 class="m-0">Sarah Smith</h6>
+                                                        <span class="text-muted f-12">sarah@corp.com</span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>Website Localization</td>
+                                            <td><span class="badge bg-light-success text-success">Read</span></td>
+                                            <td>
+                                                <a href="#" class="btn btn-icon btn-light-primary btn-sm"><i
+                                                        class="ti ti-eye"></i></a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- [ Main Content ] end -->
+        </div>
+    </div>
+    <!-- [ Main Content ] end -->
+
+    <footer class="pc-footer">
+        <div class="footer-wrapper container-fluid">
+            <div class="row">
+                <div class="col-sm-6 my-1">
+                    <p class="m-0">
+                        Veridian Solutions CMS &#9829; Created by Dev Team
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Required Js -->
+    <script src="../assets/js/plugins/popper.min.js"></script>
+    <script src="../assets/js/plugins/simplebar.min.js"></script>
+    <script src="../assets/js/plugins/bootstrap.min.js"></script>
+    <script src="../assets/js/fonts/custom-font.js"></script>
+    <script src="../assets/js/script.js"></script>
+    <script src="../assets/js/theme.js"></script>
+    <script src="../assets/js/plugins/feather.min.js"></script>
+
+    <!-- Page Specific JS -->
+    <script src="../assets/js/plugins/apexcharts.min.js"></script>
+
+    <script>
+        // Mockup Chart Data
+        document.addEventListener('DOMContentLoaded', function () {
+            setTimeout(function () {
+                // Growth Chart
+                var options = {
+                    series: [{
+                        name: 'Visitors',
+                        data: [1200, 1400, 1100, 1600, 1800, 2100, 2400]
+                    }, {
+                        name: 'Inquiries',
+                        data: [20, 35, 25, 45, 50, 65, 80]
+                    }],
+                    chart: {
+                        height: 350,
+                        type: 'area'
+                    },
+                    dataLabels: { enabled: false },
+                    stroke: { curve: 'smooth' },
+                    xaxis: {
+                        type: 'category',
+                        categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]
+                    },
+                    colors: ['#4680ff', '#212529']
+                };
+                var chart = new ApexCharts(document.querySelector("#growthchart"), options);
+                chart.render();
+
+                // Status Chart (Pie)
+                var optionsStatus = {
+                    series: [50, 30, 20],
+                    chart: {
+                        width: '100%',
+                        type: 'pie'
+                    },
+                    labels: ['Translation', 'Localization', 'Others'],
+                    colors: ['#28a745', '#4680ff', '#ffc107'],
+                    legend: {
+                        position: 'bottom',
+                        horizontalAlign: 'center'
+                    },
+                    responsive: [{
+                        breakpoint: 480,
+                        options: {
+                            chart: { width: '100%' },
+                            legend: { position: 'bottom' }
+                        }
+                    }]
+                };
+                var chartStatus = new ApexCharts(document.querySelector("#statuschart"), optionsStatus);
+                chartStatus.render();
+
+            }, 500);
+        });
+    </script>
+
+    <!-- Layout Settings -->
+    <script>layout_change('light');</script>
+    <script>layout_caption_change('true');</script>
+    <script>layout_rtl_change('false');</script>
+    <script>preset_change('preset-1');</script>
+
+</body>
+
+</html>
