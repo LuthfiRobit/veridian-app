@@ -209,85 +209,9 @@
   document.addEventListener('scroll', navmenuScrollspy);
 
   /**
-   * Language Switcher - Pagination Style
+   * Language Switcher
+   * NOTE: Handled by Blade template (frontend/partials/header.blade.php)
+   * using dynamic data from database. Do NOT add hardcoded switcher here.
    */
-  const languageSwitchers = document.querySelectorAll('.language-switcher');
-
-  if (languageSwitchers.length > 0) {
-    // Language array
-    const languages = ['EN', 'ID', 'JP', 'CN', 'ES', 'FR', 'AR'];
-    let currentIndex = 0;
-
-    // Update all language displays
-    function updateLanguage(index) {
-      languageSwitchers.forEach(switcher => {
-        const langCodeDisplay = switcher.querySelector('.lang-code');
-        if (langCodeDisplay) {
-          langCodeDisplay.textContent = languages[index];
-
-          // Add transition effect
-          langCodeDisplay.style.opacity = '0';
-          setTimeout(() => {
-            langCodeDisplay.style.opacity = '1';
-          }, 150);
-        }
-      });
-
-      localStorage.setItem('preferredLanguage', languages[index]);
-    }
-
-    // Attach event listeners to all language switchers
-    languageSwitchers.forEach(switcher => {
-      const langNavLink = switcher.querySelector('.lang-nav-link');
-
-      if (langNavLink) {
-        // Add smooth transition
-        const langCodeDisplay = switcher.querySelector('.lang-code');
-        if (langCodeDisplay) {
-          langCodeDisplay.style.transition = 'opacity 0.15s ease';
-        }
-
-        // Handle clicks on the entire link
-        langNavLink.addEventListener('click', function (e) {
-          e.preventDefault();
-
-          // Get click position relative to the link
-          const rect = langNavLink.getBoundingClientRect();
-          const clickX = e.clientX - rect.left;
-          const width = rect.width;
-          const clickPercent = (clickX / width) * 100;
-
-          console.log('Click position:', clickPercent.toFixed(1) + '%', 'of width');
-
-          // Left 35% = Previous
-          if (clickPercent < 35) {
-            currentIndex = (currentIndex - 1 + languages.length) % languages.length;
-            updateLanguage(currentIndex);
-            console.log('⬅️ Previous - Language changed to:', languages[currentIndex]);
-          }
-          // Right 35% = Next  
-          else if (clickPercent > 65) {
-            currentIndex = (currentIndex + 1) % languages.length;
-            updateLanguage(currentIndex);
-            console.log('➡️ Next - Language changed to:', languages[currentIndex]);
-          }
-          // Center 30% = No action
-          else {
-            console.log('🌐 Center (30%) - No action');
-          }
-        });
-      }
-    });
-
-    // Load saved preference
-    const savedLang = localStorage.getItem('preferredLanguage');
-    if (savedLang) {
-      const savedIndex = languages.indexOf(savedLang);
-      if (savedIndex !== -1) {
-        currentIndex = savedIndex;
-        updateLanguage(currentIndex);
-      }
-    }
-  }
 
 })();

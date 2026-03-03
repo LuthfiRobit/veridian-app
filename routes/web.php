@@ -1,10 +1,47 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Frontend\AboutController;
+use App\Http\Controllers\Frontend\ServiceController;
+use App\Http\Controllers\Frontend\PortfolioController;
+use App\Http\Controllers\Frontend\BlogController;
+use App\Http\Controllers\Frontend\ContactController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+/*
+|--------------------------------------------------------------------------
+| Root Redirect
+|--------------------------------------------------------------------------
+| Redirect / to /{defaultLocale} using the default language from DB.
+*/
+Route::get('/', fn() => redirect('/' . \App\Models\Language::getDefaultCode()));
+
+/*
+|--------------------------------------------------------------------------
+| Landing Page Routes (public, no auth)
+|--------------------------------------------------------------------------
+| All public-facing routes are prefixed with {locale} (2-letter code).
+| The 'localization' middleware validates the locale and sets app locale.
+*/
+Route::prefix('{locale}')
+    ->where(['locale' => '[a-z]{2}'])
+    ->middleware('localization')
+    ->group(function () {
+        Route::get('/', [HomeController::class, 'index'])->name('home');
+        Route::get('/about', [AboutController::class, 'index'])->name('about');
+        Route::get('/about/team', [AboutController::class, 'team'])->name('about.team');
+        Route::get('/services/{slug}', [ServiceController::class, 'show'])->name('services.show');
+        Route::get('/portfolio/{slug}', [PortfolioController::class, 'show'])->name('portfolio.show');
+        Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+        Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
+    });
+
+/*
+|--------------------------------------------------------------------------
+| Contact Form (AJAX POST — excluded from cache)
+|--------------------------------------------------------------------------
+*/
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
 // Authentication Routes
 Route::get('login', [App\Http\Controllers\Backend\AuthController::class, 'showLoginForm'])->name('login');
