@@ -66,10 +66,11 @@ class TestimonialSeeder extends Seeder
 
             $testimonial = Testimonial::create($data);
 
+            $insertTranslations = [];
             foreach ($translations as $locale => $translation) {
-                $testimonial->translateOrNew($locale)->fill($translation);
+                $insertTranslations[] = array_merge(['locale' => $locale], $translation);
             }
-            $testimonial->save();
+            $testimonial->translations()->createMany($insertTranslations);
         }
     }
 }

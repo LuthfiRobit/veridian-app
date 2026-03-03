@@ -55,9 +55,10 @@ class CoreValueSeeder extends Seeder
                 'is_active' => true,
             ]);
 
-            $coreValue->translateOrNew('en')->fill($v['en']);
-            $coreValue->translateOrNew('id')->fill($v['id']);
-            $coreValue->save();
+            $coreValue->translations()->createMany([
+                array_merge(['locale' => 'en'], $v['en']),
+                array_merge(['locale' => 'id'], $v['id'])
+            ]);
         }
     }
 }

@@ -43,9 +43,10 @@ class CertificationSeeder extends Seeder
                 'is_active' => true,
             ]);
 
-            $cert->translateOrNew('en')->fill($c['en']);
-            $cert->translateOrNew('id')->fill($c['id']);
-            $cert->save();
+            $cert->translations()->createMany([
+                array_merge(['locale' => 'en'], $c['en']),
+                array_merge(['locale' => 'id'], $c['id'])
+            ]);
         }
     }
 }

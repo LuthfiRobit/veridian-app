@@ -69,9 +69,10 @@ class CompanyTimelineSeeder extends Seeder
                 'is_active' => true,
             ]);
 
-            $timeline->translateOrNew('en')->fill($m['en']);
-            $timeline->translateOrNew('id')->fill($m['id']);
-            $timeline->save();
+            $timeline->translations()->createMany([
+                array_merge(['locale' => 'en'], $m['en']),
+                array_merge(['locale' => 'id'], $m['id'])
+            ]);
         }
     }
 }

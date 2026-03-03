@@ -46,6 +46,11 @@ return new class extends Migration {
             $table->unsignedBigInteger('id_company_profile');
             $table->string('locale')->index();
 
+            // Hero Section
+            $table->string('hero_badge')->nullable();
+            $table->string('hero_title')->nullable();
+            $table->text('hero_description')->nullable();
+
             // About Section
             $table->string('about_title')->nullable();
             $table->string('about_subtitle')->nullable();
