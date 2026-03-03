@@ -11,6 +11,9 @@ class CompanyProfileTranslation extends Model
     protected $primaryKey = 'id_company_profile_translation';
 
     protected $fillable = [
+        'hero_badge',
+        'hero_title',
+        'hero_description',
         'about_title',
         'about_subtitle',
         'about_lead_text',

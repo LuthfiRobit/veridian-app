@@ -16,6 +16,9 @@ class CompanyProfile extends Model implements TranslatableContract
     protected $translationForeignKey = 'id_company_profile';
 
     public $translatedAttributes = [
+        'hero_badge',
+        'hero_title',
+        'hero_description',
         'about_title',
         'about_subtitle',
         'about_lead_text',
