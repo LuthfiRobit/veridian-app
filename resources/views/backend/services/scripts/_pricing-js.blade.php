@@ -11,26 +11,8 @@
             ajax: "{{ route('admin.services.pricings.index', $service->id_service) }}",
             columns: [
                 { data: 'sort_order', name: 'sort_order' },
-                {
-                    data: 'translations',
-                    name: 'translations.name',
-                    defaultContent: '-',
-                    render: function (data, type, row) {
-                        if (!data || !Array.isArray(data)) return '-';
-                        let trans = data.find(t => t.locale === defaultLangCode);
-                        return trans ? trans.name : '-';
-                    }
-                },
-                {
-                    data: 'translations',
-                    name: 'translations.price_label',
-                    defaultContent: '-',
-                    render: function (data, type, row) {
-                        if (!data || !Array.isArray(data)) return '-';
-                        let trans = data.find(t => t.locale === defaultLangCode);
-                        return trans ? trans.price_label : '-';
-                    }
-                },
+                { data: 'name', name: 'name' },
+                { data: 'price_label', name: 'price_label' },
                 { data: 'is_featured', name: 'is_featured' },
                 { data: 'action', name: 'action', orderable: false, searchable: false },
             ]
@@ -89,11 +71,11 @@
                     $(`#pricingModal input[name="translations[${trans.locale}][unit_label]"]`).val(trans.unit_label);
 
                     // Handle Features List (Array -> String with newlines)
-                    if (trans.features_list && Array.isArray(trans.features_list)) {
-                        $(`#pricingModal textarea[name="translations[${trans.locale}][features_raw]"]`).val(trans.features_list.join('\n'));
-                    } else {
-                        $(`#pricingModal textarea[name="translations[${trans.locale}][features_raw]"]`).val('');
+                    let featuresRaw = trans.features_raw;
+                    if (!featuresRaw && trans.features_list && Array.isArray(trans.features_list)) {
+                        featuresRaw = trans.features_list.join('\n');
                     }
+                    $(`#pricingModal textarea[name="translations[${trans.locale}][features_raw]"]`).val(featuresRaw || '');
                 });
 
                 $('#pricingModalLabel').text('Edit Package');

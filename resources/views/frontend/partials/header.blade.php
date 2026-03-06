@@ -5,44 +5,60 @@
         {{-- Logo --}}
         <a href="{{ route('home', ['locale' => $currentLocale]) }}"
             class="logo d-flex align-items-center me-auto me-xl-0">
-            <img src="{{ asset('company-landing/assets/img/WEB LOGO ORIGINAL.png') }}" alt="Veridian Solutions"
-                style="max-height: 48px;">
+            <img src="{{ asset('company-landing/assets/img/WEB LOGO ORIGINAL.png') }}"
+                alt="{{ __('alt.veridian_logo') }}" style="max-height: 48px;">
         </a>
 
         {{-- Navigation Menu --}}
         <nav id="navmenu" class="navmenu">
             <ul>
                 <li><a href="{{ route('home', ['locale' => $currentLocale]) }}#hero" @if(request()->routeIs('home'))
-                class="active" @endif>Home</a></li>
-                <li><a href="{{ route('home', ['locale' => $currentLocale]) }}#about">About</a></li>
-                <li><a href="{{ route('home', ['locale' => $currentLocale]) }}#services">Services</a></li>
+                class="active" @endif>{{ __('nav.home') }}</a></li>
+                <li><a href="{{ route('home', ['locale' => $currentLocale]) }}#about">{{ __('nav.about') }}</a></li>
+                <li><a href="{{ route('home', ['locale' => $currentLocale]) }}#services">{{ __('nav.services') }}</a>
+                </li>
 
                 {{-- Dropdown for Desktop only --}}
                 <li class="dropdown d-none d-xl-block">
-                    <a href="#"><span>More</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                    <a href="#"><span>{{ __('nav.more') }}</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                     <ul>
-                        <li><a href="{{ route('about', ['locale' => $currentLocale]) }}">About Us</a></li>
-                        <li><a href="{{ route('about.team', ['locale' => $currentLocale]) }}">Our Team</a></li>
-                        <li><a href="{{ route('home', ['locale' => $currentLocale]) }}#portfolio">Portfolio</a></li>
-                        <li><a href="{{ route('home', ['locale' => $currentLocale]) }}#why-us">Why Us</a></li>
-                        <li><a href="{{ route('home', ['locale' => $currentLocale]) }}#testimonials">Testimonials</a>
+                        <li><a href="{{ route('about', ['locale' => $currentLocale]) }}">{{ __('nav.about_us') }}</a>
                         </li>
-                        <li><a href="{{ route('blog.index', ['locale' => $currentLocale]) }}">Blog</a></li>
+                        <li><a
+                                href="{{ route('about.team', ['locale' => $currentLocale]) }}">{{ __('nav.our_team') }}</a>
+                        </li>
+                        <li><a
+                                href="{{ route('home', ['locale' => $currentLocale]) }}#portfolio">{{ __('nav.portfolio') }}</a>
+                        </li>
+                        <li><a
+                                href="{{ route('home', ['locale' => $currentLocale]) }}#why-us">{{ __('nav.why_us') }}</a>
+                        </li>
+                        <li><a
+                                href="{{ route('home', ['locale' => $currentLocale]) }}#testimonials">{{ __('nav.testimonials') }}</a>
+                        </li>
+                        <li><a href="{{ route('blog.index', ['locale' => $currentLocale]) }}">{{ __('nav.blog') }}</a>
+                        </li>
                     </ul>
                 </li>
 
                 {{-- Direct menu items for Mobile only --}}
-                <li class="d-xl-none"><a href="{{ route('about', ['locale' => $currentLocale]) }}">About Us</a></li>
-                <li class="d-xl-none"><a href="{{ route('about.team', ['locale' => $currentLocale]) }}">Our Team</a>
+                <li class="d-xl-none"><a
+                        href="{{ route('about', ['locale' => $currentLocale]) }}">{{ __('nav.about_us') }}</a></li>
+                <li class="d-xl-none"><a
+                        href="{{ route('about.team', ['locale' => $currentLocale]) }}">{{ __('nav.our_team') }}</a>
                 </li>
                 <li class="d-xl-none"><a
-                        href="{{ route('home', ['locale' => $currentLocale]) }}#portfolio">Portfolio</a></li>
-                <li class="d-xl-none"><a href="{{ route('home', ['locale' => $currentLocale]) }}#why-us">Why Us</a></li>
+                        href="{{ route('home', ['locale' => $currentLocale]) }}#portfolio">{{ __('nav.portfolio') }}</a>
+                </li>
                 <li class="d-xl-none"><a
-                        href="{{ route('home', ['locale' => $currentLocale]) }}#testimonials">Testimonials</a></li>
-                <li class="d-xl-none"><a href="{{ route('blog.index', ['locale' => $currentLocale]) }}">Blog</a></li>
+                        href="{{ route('home', ['locale' => $currentLocale]) }}#why-us">{{ __('nav.why_us') }}</a></li>
+                <li class="d-xl-none"><a
+                        href="{{ route('home', ['locale' => $currentLocale]) }}#testimonials">{{ __('nav.testimonials') }}</a>
+                </li>
+                <li class="d-xl-none"><a
+                        href="{{ route('blog.index', ['locale' => $currentLocale]) }}">{{ __('nav.blog') }}</a></li>
 
-                <li><a href="{{ route('home', ['locale' => $currentLocale]) }}#contact">Contact</a></li>
+                <li><a href="{{ route('home', ['locale' => $currentLocale]) }}#contact">{{ __('nav.contact') }}</a></li>
 
                 {{-- Language switcher for mobile only (shown if > 1 active language) --}}
                 @if($activeLanguages->count() > 1)
@@ -78,13 +94,13 @@
                     </a>
                 </div>
             @endif
-            <a class="btn-getstarted contact-btn" href="{{ route('home', ['locale' => $currentLocale]) }}#contact">Get
-                Started</a>
+            <a class="btn-getstarted contact-btn"
+                href="{{ route('home', ['locale' => $currentLocale]) }}#contact">{{ __('nav.get_started') }}</a>
         </div>
 
         {{-- Get Started button for mobile --}}
         <a class="btn-getstarted contact-btn d-xl-none"
-            href="{{ route('home', ['locale' => $currentLocale]) }}#contact">Get Started</a>
+            href="{{ route('home', ['locale' => $currentLocale]) }}#contact">{{ __('nav.get_started') }}</a>
 
     </div>
 </header>

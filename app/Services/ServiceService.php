@@ -57,7 +57,7 @@ class ServiceService
                 $file = $serviceData['image_main'];
                 $filename = time() . '_' . $file->getClientOriginalName();
                 $path = $file->storeAs('services', $filename, 'public');
-                $serviceData['image_main'] = 'storage/' . $path;
+                $serviceData['image_main'] = $path;
             }
 
             $serviceData['created_by'] = auth()->id();
@@ -122,7 +122,7 @@ class ServiceService
                 $file = $serviceData['image_main'];
                 $filename = time() . '_' . $file->getClientOriginalName();
                 $path = $file->storeAs('services', $filename, 'public');
-                $serviceData['image_main'] = 'storage/' . $path;
+                $serviceData['image_main'] = $path;
 
                 // TODO: Delete old image if needed (requires fetching old service data first)
             }

@@ -19,13 +19,20 @@ class ServicePricingController extends Controller
 
         return DataTables::of($query)
             ->addIndexColumn()
+            ->addColumn('name', function ($row) {
+                // Return translation for default locale (usually 'en')
+                return $row->translate(config('app.fallback_locale'))?->name ?? $row->name ?? '-';
+            })
+            ->addColumn('price_label', function ($row) {
+                return $row->translate(config('app.fallback_locale'))?->price_label ?? $row->price_label ?? '-';
+            })
+            ->editColumn('is_featured', function ($row) {
+                return $row->is_featured ? '<span class="badge bg-primary">Popular</span>' : '-';
+            })
             ->addColumn('action', function ($row) {
                 $btn = '<button type="button" class="btn btn-icon btn-light-warning btn-sm edit-pricing" data-id="' . $row->id_service_pricing . '" title="Edit"><i class="ti ti-edit"></i></button>';
                 $btn .= ' <button type="button" class="btn btn-icon btn-light-danger btn-sm delete-pricing" data-id="' . $row->id_service_pricing . '" title="Delete"><i class="ti ti-trash"></i></button>';
                 return $btn;
-            })
-            ->editColumn('is_featured', function ($row) {
-                return $row->is_featured ? '<span class="badge bg-primary">Popular</span>' : '-';
             })
             ->rawColumns(['action', 'is_featured'])
             ->make(true);
@@ -40,6 +47,13 @@ class ServicePricingController extends Controller
 
             $pricing = $service->pricings()->create($data);
             $this->saveTranslations($pricing, $translations);
+
+            // Enforce single featured pricing
+            if ($pricing->is_featured) {
+                $service->pricings()
+                    ->where('id_service_pricing', '!=', $pricing->id_service_pricing)
+                    ->update(['is_featured' => false]);
+            }
 
             DB::commit();
             return response()->json(['success' => 'Pricing plan added successfully.']);
@@ -62,8 +76,18 @@ class ServicePricingController extends Controller
             $data = $request->validated();
             $translations = $this->extractTranslations($data);
 
+            // Ensure is_featured is handled (default to false if not in request)
+            $data['is_featured'] = $request->has('is_featured');
+
             $pricing->update($data);
             $this->saveTranslations($pricing, $translations);
+
+            // Enforce single featured pricing
+            if ($pricing->is_featured) {
+                $service->pricings()
+                    ->where('id_service_pricing', '!=', $pricing->id_service_pricing)
+                    ->update(['is_featured' => false]);
+            }
 
             DB::commit();
             return response()->json(['success' => 'Pricing plan updated successfully.']);
@@ -91,11 +115,13 @@ class ServicePricingController extends Controller
                 if (!empty($transData['name'])) {
                     // Handle Features List: Convert textarea newlines to array
                     if (isset($transData['features_raw'])) {
-                        $raw = $transData['features_raw'];
+                        $raw = $transData['features_raw'] ?? '';
                         // Split by newline, trim whitespace, filter empty lines
-                        $features = array_filter(array_map('trim', explode("\n", $raw)));
+                        $features = array_filter(array_map('trim', explode("\n", (string) $raw)));
                         $transData['features_list'] = array_values($features);
-                        unset($transData['features_raw']);
+                        // We keep features_raw if we want to re-populate the textarea easily, 
+                        // but usually it's better to store just what's needed or both.
+                        // The translation model has 'features_list' as array cast.
                     }
 
                     $translations[$locale] = $transData;

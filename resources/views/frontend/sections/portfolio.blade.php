@@ -3,8 +3,8 @@
 
     <!-- Section Title -->
     <div class="container section-title" data-aos="fade-up">
-        <h2>Our Portfolio</h2>
-        <p>Showcasing our expertise across diverse language projects and industries</p>
+        <h2>{{ __('portfolio.section_title') }}</h2>
+        <p>{{ __('portfolio.section_subtitle') }}</p>
     </div><!-- End Section Title -->
 
     <div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -13,7 +13,7 @@
 
             <div class="filters-wrapper" data-aos="fade-up" data-aos-delay="100">
                 <ul class="portfolio-filters isotope-filters">
-                    <li data-filter="*" class="filter-active">All Projects</li>
+                    <li data-filter="*" class="filter-active">{{ __('portfolio.all_projects') }}</li>
                     @foreach($portfolioCategories as $category)
                         @php
                             $catTrans = $category->translate($currentLocale) ?? $category->translate(config('app.fallback_locale'));
@@ -32,7 +32,12 @@
                         $translation = $project->translate($currentLocale) ?? $project->translate(config('app.fallback_locale'));
                         $catTranslation = $project->category?->translate($currentLocale) ?? $project->category?->translate(config('app.fallback_locale'));
                         $image = $project->images->first()?->image_path;
-                        $imageUrl = $image ? asset('storage/' . $image) : asset('company-landing/assets/img/portfolio/portfolio-1.webp');
+                        if ($image && \Str::startsWith($image, 'storage/')) {
+                            $image = \Str::replaceFirst('storage/', '', $image);
+                        }
+                        $imageUrl = ($image && \Storage::disk('public')->exists($image))
+                            ? asset('storage/' . $image)
+                            : 'https://ui-avatars.com/api/?name=' . urlencode($translation?->title ?? 'Project') . '&background=123a32&color=fff&size=800&font-size=0.1&length=2';
                     @endphp
                     <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-{{ $project->id_project_category }}">
                         <div class="project-card {{ $project->is_featured ? 'featured' : '' }}">
@@ -50,16 +55,19 @@
                                         </a>
                                     </div>
                                 </div>
-                                <span class="category-badge">{{ $catTranslation?->name ?? 'Project' }}</span>
+                                <span
+                                    class="category-badge">{{ $catTranslation?->name ?? __('portfolio.fallback_category') }}</span>
                                 @if($project->is_featured)
-                                    <span class="featured-badge"><i class="bi bi-star-fill"></i> Featured</span>
+                                    <span class="featured-badge"><i class="bi bi-star-fill"></i>
+                                        {{ __('portfolio.featured') }}</span>
                                 @endif
                             </div>
                             <div class="project-info">
                                 <h3><a
-                                        href="{{ route('portfolio.show', ['locale' => $currentLocale, 'slug' => $translation?->slug ?? '#']) }}">{{ $translation?->title ?? 'Project Title' }}</a>
+                                        href="{{ route('portfolio.show', ['locale' => $currentLocale, 'slug' => $translation?->slug ?? '#']) }}">{{ $translation?->title ?? __('portfolio.fallback_title') }}</a>
                                 </h3>
-                                <p>{{ Str::limit($translation?->short_description ?? 'Project description', 80) }}</p>
+                                <p>{{ Str::limit($translation?->short_description ?? __('portfolio.fallback_desc'), 80) }}
+                                </p>
                                 <div class="project-meta">
                                     <div class="tech-tags">
                                         <span>{{ Str::limit($translation?->source_language . '→' . $translation?->target_language, 15) }}</span>
@@ -72,7 +80,7 @@
                     </div>
                 @empty
                     <div class="col-12 text-center text-muted">
-                        <p>No projects available yet.</p>
+                        <p>{{ __('portfolio.empty_state') }}</p>
                     </div>
                 @endforelse
 
@@ -82,14 +90,16 @@
 
         <div class="cta-section" data-aos="zoom-in" data-aos-delay="300">
             <div class="cta-content">
-                <span class="cta-label"><i class="bi bi-lightning-charge-fill"></i> Ready to Start?</span>
-                <h3>Let's Bring Your Content to a Global Audience</h3>
-                <p>Partner with us to deliver your message accurately and effectively across languages and cultures.</p>
+                <span class="cta-label"><i class="bi bi-lightning-charge-fill"></i>
+                    {{ __('portfolio.cta_label') }}</span>
+                <h3>{{ __('portfolio.cta_title') }}</h3>
+                <p>{{ __('portfolio.cta_description') }}</p>
                 <div class="cta-buttons">
                     <a href="{{ route('home', ['locale' => $currentLocale]) }}#contact"
-                        class="btn-cta-primary contact-btn">Start Your Project <i class="bi bi-arrow-right"></i></a>
+                        class="btn-cta-primary contact-btn">{{ __('portfolio.start_project') }} <i
+                            class="bi bi-arrow-right"></i></a>
                     <a href="{{ route('home', ['locale' => $currentLocale]) }}#services" class="btn-cta-secondary"><i
-                            class="bi bi-collection"></i> View All Services</a>
+                            class="bi bi-collection"></i> {{ __('portfolio.view_all_services') }}</a>
                 </div>
             </div>
             <div class="cta-decoration">

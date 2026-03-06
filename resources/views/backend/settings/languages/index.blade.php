@@ -42,6 +42,7 @@
                             <th>Code</th>
                             <th>Icon</th>
                             <th>Status</th>
+                            <th>Default</th>
                             <th>Action</th>
                         </tr>
                     </thead>

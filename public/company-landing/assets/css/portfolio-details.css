@@ -807,6 +807,10 @@
     border-top: 4px solid var(--primary-light);
 }
 
+.cs-card.result {
+    border-top: 4px solid var(--accent-color);
+}
+
 .cs-icon {
     width: 60px;
     height: 60px;
@@ -826,6 +830,11 @@
 .cs-card.solution .cs-icon {
     background: rgba(82, 183, 136, 0.1);
     color: var(--primary-light);
+}
+
+.cs-card.result .cs-icon {
+    background: rgba(82, 183, 136, 0.1);
+    color: var(--accent-color);
 }
 
 .cs-card h4 {

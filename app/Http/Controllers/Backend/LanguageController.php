@@ -32,10 +32,17 @@ class LanguageController extends Controller
                 ->addColumn('status', function ($row) {
                     return $row->is_active ? '<span class="badge bg-success">Active</span>' : '<span class="badge bg-danger">Inactive</span>';
                 })
+                ->addColumn('is_default', function ($row) {
+                    if ($row->is_default) {
+                        return '<div class="form-check form-switch d-flex justify-content-center"><input class="form-check-input" type="checkbox" checked disabled style="cursor: not-allowed;" title="Already Default"></div>';
+                    } else {
+                        return '<div class="form-check form-switch d-flex justify-content-center"><input class="form-check-input set-default-btn" type="checkbox" data-id="' . $row->id_language . '" title="Set as Default"></div>';
+                    }
+                })
                 ->addColumn('icon_display', function ($row) {
                     return '<i class="' . $row->icon . '"></i> ' . $row->icon;
                 })
-                ->rawColumns(['action', 'status', 'icon_display'])
+                ->rawColumns(['action', 'status', 'icon_display', 'is_default'])
                 ->make(true);
         }
         return view('backend.settings.languages.index');
@@ -72,6 +79,17 @@ class LanguageController extends Controller
         try {
             $this->languageService->deleteLanguage($id);
             return response()->json(['success' => 'Language deleted successfully.']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function setDefault($id)
+    {
+        try {
+            app(\App\Interfaces\LanguageRepositoryInterface::class)->setDefault($id);
+            \App\Models\Language::clearDefaultCodeCache();
+            return response()->json(['success' => 'Default language updated successfully.']);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }

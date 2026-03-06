@@ -13,7 +13,7 @@ class ServicePricing extends Model implements TranslatableContract
 
     protected $primaryKey = 'id_service_pricing';
     protected $translationForeignKey = 'id_service_pricing';
-    public $translatedAttributes = ['name', 'price_label', 'unit_label', 'features_list'];
+    public $translatedAttributes = ['name', 'price_label', 'unit_label', 'features_list', 'features_raw'];
     protected $fillable = ['id_service', 'is_featured', 'sort_order', 'is_active'];
 
     protected $casts = [

@@ -72,6 +72,7 @@ return new class extends Migration {
             $table->string('price_label')->nullable(); // "Starting at $0.12"
             $table->string('unit_label')->nullable(); // "/word"
             $table->json('features_list')->nullable(); // JSON array for bullet points
+            $table->text('features_raw')->nullable(); // Raw textarea content for persistence
 
             $table->unique(['id_service_pricing', 'locale']);
             $table->foreign('id_service_pricing')->references('id_service_pricing')->on('service_pricings')->onDelete('cascade');

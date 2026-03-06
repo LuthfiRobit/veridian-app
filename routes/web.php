@@ -56,6 +56,7 @@ Route::middleware(['auth', 'ip.whitelist'])->prefix('admin')->name('admin.')->gr
 
     // Settings
     Route::middleware(['permission:manage settings'])->group(function () {
+        Route::post('languages/{language}/set-default', [App\Http\Controllers\Backend\LanguageController::class, 'setDefault'])->name('languages.set-default');
         Route::resource('languages', App\Http\Controllers\Backend\LanguageController::class);
         Route::resource('ip-whitelists', App\Http\Controllers\Backend\IpWhitelistController::class);
     });

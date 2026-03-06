@@ -3,6 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Cache;
+use App\Observers\CacheInvalidationObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,24 +22,26 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        \Illuminate\Support\Facades\View::composer('frontend.partials.*', function ($view) {
-            $locale = app()->getLocale();
 
-            // Share Company Profile
-            $company = \App\Models\CompanyProfile::with([
-                'translations' => function ($query) use ($locale) {
-                    $query->where('locale', $locale)->orWhere('locale', config('app.fallback_locale'));
-                }
-            ])->first();
 
-            // Share Services for Footer Links
-            $footerServices = \App\Models\Service::with([
-                'translations' => function ($query) use ($locale) {
-                    $query->where('locale', $locale)->orWhere('locale', config('app.fallback_locale'));
-                }
-            ])->where('is_active', true)->orderBy('sort_order')->take(5)->get();
+        // ─── Register CacheInvalidationObserver for all content models ───
+        $modelsToObserve = [
+            \App\Models\CompanyProfile::class,
+            \App\Models\Service::class,
+            \App\Models\Project::class,
+            \App\Models\Testimonial::class,
+            \App\Models\TeamMember::class,
+            \App\Models\BlogPost::class,
+            \App\Models\CoreValue::class,
+            \App\Models\CompanyTimeline::class,
+            \App\Models\Certification::class,
+            \App\Models\BlogCategory::class,
+            \App\Models\ProjectCategory::class,
+            \App\Models\Language::class,
+        ];
 
-            $view->with(compact('company', 'footerServices'));
-        });
+        foreach ($modelsToObserve as $model) {
+            $model::observe(CacheInvalidationObserver::class);
+        }
     }
 }

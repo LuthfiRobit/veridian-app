@@ -50,12 +50,6 @@
                     </div>
 
                     <div class="mb-3 form-check">
-                        <input type="hidden" name="is_default" value="0">
-                        <input type="checkbox" class="form-check-input" id="is_default" name="is_default" value="1">
-                        <label class="form-check-label" for="is_default">Is Default?</label>
-                    </div>
-
-                    <div class="mb-3 form-check">
                         <input type="hidden" name="is_active" value="0">
                         <input type="checkbox" class="form-check-input" id="is_active" name="is_active" value="1"
                             checked>

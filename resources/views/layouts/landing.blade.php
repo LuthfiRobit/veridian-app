@@ -4,18 +4,14 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>@yield('title', 'Veridian Solutions | Global Translation & Media Excellence')</title>
-    <meta name="description"
-        content="@yield('meta_description', 'Global translation and media excellence. Professional translation, dubbing, subtitling, and localization services.')">
-    <meta name="keywords"
-        content="@yield('meta_keywords', 'translation, dubbing, subtitling, localization, language services')">
+    <title>@yield('title', __('meta.default_title'))</title>
+    <meta name="description" content="@yield('meta_description', __('meta.default_description'))">
+    <meta name="keywords" content="@yield('meta_keywords', __('meta.default_keywords'))">
 
     <!-- Open Graph (Facebook / LinkedIn) -->
     <meta property="og:type" content="@yield('og_type', 'website')">
-    <meta property="og:title"
-        content="@yield('og_title', 'Veridian Solutions | Global Translation & Media Excellence')">
-    <meta property="og:description"
-        content="@yield('og_description', 'Professional translation, dubbing, subtitling, and localization services for global communication.')">
+    <meta property="og:title" content="@yield('og_title', __('meta.default_title'))">
+    <meta property="og:description" content="@yield('og_description', __('meta.default_description'))">
     <meta property="og:url" content="@yield('og_url', url()->current())">
     <meta property="og:image" content="@yield('og_image', asset('company-landing/assets/img/WEB LOGO ORIGINAL.png'))">
     <meta property="og:site_name" content="Veridian Solutions">
@@ -23,10 +19,8 @@
 
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="@yield('twitter_card', 'summary_large_image')">
-    <meta name="twitter:title"
-        content="@yield('twitter_title', 'Veridian Solutions | Global Translation & Media Excellence')">
-    <meta name="twitter:description"
-        content="@yield('twitter_description', 'Professional translation, dubbing, subtitling, and localization services for global communication.')">
+    <meta name="twitter:title" content="@yield('twitter_title', __('meta.default_title'))">
+    <meta name="twitter:description" content="@yield('twitter_description', __('meta.default_description'))">
     <meta name="twitter:image"
         content="@yield('twitter_image', asset('company-landing/assets/img/WEB LOGO ORIGINAL.png'))">
 
@@ -125,7 +119,7 @@
             const whatsappNumber = '{{ isset($company) ? ($company->whatsapp ?? "") : "" }}';
             if (!whatsappNumber) return;
 
-            const whatsappMessage = encodeURIComponent('Hello Veridian Solutions! I would like to discuss my translation project.');
+            const whatsappMessage = encodeURIComponent(@json(__('swal.whatsapp_message')));
             const whatsappURL = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
 
             document.querySelectorAll('.contact-btn').forEach(function (button) {
@@ -133,8 +127,8 @@
                     if (!this.hasAttribute('href') || this.getAttribute('href') === '#contact' || this.classList.contains('whatsapp-float')) {
                         e.preventDefault();
                         Swal.fire({
-                            title: 'Redirecting to WhatsApp...',
-                            html: 'Please wait while we connect you to our agent.',
+                            title: @json(__('swal.whatsapp_title')),
+                            html: @json(__('swal.whatsapp_html')),
                             icon: 'info',
                             timer: 2000,
                             timerProgressBar: true,
@@ -165,7 +159,7 @@
                     // Loading state
                     submitBtn.disabled = true;
                     spinner.classList.remove('d-none');
-                    btnText.textContent = 'Sending...';
+                    btnText.textContent = @json(__('swal.sending'));
 
                     const formData = new FormData(contactForm);
 
@@ -182,12 +176,12 @@
                             // Reset button state
                             submitBtn.disabled = false;
                             spinner.classList.add('d-none');
-                            btnText.textContent = 'Send Message';
+                            btnText.textContent = @json(__('contact.send_message'));
 
                             if (res.status === 200 && res.body.success) {
                                 Swal.fire({
                                     icon: 'success',
-                                    title: 'Success!',
+                                    title: @json(__('swal.success_title')),
                                     text: res.body.message,
                                     confirmButtonColor: '#059669' // brand green
                                 });
@@ -200,7 +194,7 @@
                                 }
                                 Swal.fire({
                                     icon: 'error',
-                                    title: 'Validation Failed',
+                                    title: @json(__('swal.validation_failed')),
                                     html: errorList,
                                     confirmButtonColor: '#ef4444' // red
                                 });
@@ -208,8 +202,8 @@
                                 // Server error
                                 Swal.fire({
                                     icon: 'error',
-                                    title: 'Oops...',
-                                    text: res.body.message || 'Something went wrong!',
+                                    title: @json(__('swal.oops')),
+                                    text: res.body.message || @json(__('swal.something_went_wrong')),
                                     confirmButtonColor: '#ef4444'
                                 });
                             }
@@ -218,12 +212,12 @@
                             // Network error
                             submitBtn.disabled = false;
                             spinner.classList.add('d-none');
-                            btnText.textContent = 'Send Message';
+                            btnText.textContent = @json(__('contact.send_message'));
 
                             Swal.fire({
                                 icon: 'error',
-                                title: 'Network Error',
-                                text: 'Failed to connect to the server. Please try again.',
+                                title: @json(__('swal.network_error')),
+                                text: @json(__('swal.network_error_text')),
                                 confirmButtonColor: '#ef4444'
                             });
                         });

@@ -87,7 +87,13 @@
             },
             {
                 data: 'status',
-                name: 'is_active'
+                name: 'is_active',
+                className: 'text-center'
+            },
+            {
+                data: 'is_default',
+                name: 'is_default',
+                className: 'text-center'
             },
             {
                 data: 'action',
@@ -124,7 +130,6 @@
                 codeSelect.setValue(data.code);
                 iconSelect.setValue(data.icon);
 
-                $('#is_default').prop('checked', data.is_default == 1);
                 $('#is_active').prop('checked', data.is_active == 1);
             })
         });
@@ -201,6 +206,48 @@
                                 icon: 'error',
                                 title: 'Error',
                                 text: data.responseJSON.error,
+                            });
+                        }
+                    });
+                }
+            })
+        });
+
+        $('body').on('change', '.set-default-btn', function () {
+            var el = $(this);
+            var id_language = el.data("id");
+            // Revert visually immediately so it only stays checked if confirmed & success
+            el.prop('checked', false);
+
+            Swal.fire({
+                title: 'Set as Default?',
+                text: "This language will become the default language for the site.",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, set it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ url('admin/languages') }}/" + id_language + "/set-default",
+                        success: function (data) {
+                            table.draw(false);
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: data.success,
+                                timer: 1500,
+                                showConfirmButton: false
+                            });
+                        },
+                        error: function (data) {
+                            console.log('Error:', data);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: data.responseJSON.error || 'Failed to set default language.',
                             });
                         }
                     });

@@ -18,14 +18,7 @@ class UpdateLanguageRequest extends FormRequest
             'name' => 'required|string|max:255',
             'code' => 'required|string|max:50|unique:languages,code,' . $id . ',id_language',
             'icon' => 'nullable|string|max:255',
-            'is_default' => [
-                'boolean',
-                function ($attribute, $value, $fail) use ($id) {
-                    if ($value && \App\Models\Language::where('is_default', true)->where('id_language', '!=', $id)->exists()) {
-                        $fail('A default language already exists.');
-                    }
-                }
-            ],
+            'is_default' => 'boolean',
             'is_active' => 'boolean',
         ];
     }

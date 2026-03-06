@@ -7,6 +7,7 @@ use App\Models\CompanyProfile;
 use App\Models\Language;
 use App\Http\Requests\Backend\CompanyProfile\UpdateCompanyProfileRequest;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Cache;
 
 class CompanyProfileController extends Controller
 {
@@ -79,6 +80,15 @@ class CompanyProfileController extends Controller
                     $profile->translateOrNew($locale)->fill($translationData);
                 }
                 $profile->save();
+            }
+
+            // Invalidate frontend caches for all locales
+            $locales = Language::where('is_active', true)->pluck('code');
+            foreach ($locales as $loc) {
+                Cache::forget("company_profile_{$loc}");
+                Cache::forget("home_page_{$loc}");
+                Cache::forget("about_page_{$loc}");
+                Cache::forget("footer_services_{$loc}");
             }
 
             return redirect()->route('admin.company-profile.edit')->with('success', 'Company profile updated successfully.');

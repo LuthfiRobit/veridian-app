@@ -4,36 +4,7 @@
 
         if (typeof serviceId === 'undefined') return;
 
-        const pricingsTable = $('#pricingsTable').DataTable({
-            processing: true,
-            serverSide: true,
-            responsive: true,
-            ajax: "{{ route('admin.services.pricings.index', $service->id_service) }}",
-            columns: [
-                { data: 'step_number', name: 'step_number' },
-                {
-                    data: 'translations',
-                    name: 'translations.title',
-                    defaultContent: '-',
-                    render: function (data, type, row) {
-                        if (!data || !Array.isArray(data)) return '-';
-                        let trans = data.find(t => t.locale === defaultLangCode);
-                        return trans ? trans.title : '-';
-                    }
-                },
-                {
-                    data: 'translations',
-                    name: 'translations.description',
-                    defaultContent: '-',
-                    render: function (data, type, row) {
-                        if (!data || !Array.isArray(data)) return '-';
-                        let trans = data.find(t => t.locale === defaultLangCode);
-                        return (trans && trans.description) ? trans.description.substring(0, 50) + '...' : '-';
-                    }
-                },
-                { data: 'action', name: 'action', orderable: false, searchable: false },
-            ]
-        });
+
 
         const processesTable = $('#processesTable').DataTable({
             processing: true,

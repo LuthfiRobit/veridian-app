@@ -10,26 +10,26 @@
                     <div class="hero-tag" data-aos="fade-up" data-aos-delay="250">
                         <span class="tag-dot"></span>
                         <span class="tag-text">
-                            {{ $company->translate($currentLocale)?->hero_badge ?? 'Professional Language Solutions' }}
+                            {{ $company->translate($currentLocale)?->hero_badge ?? __('hero.fallback_badge') }}
                         </span>
                     </div>
 
                     <h1 class="hero-headline" data-aos="fade-up" data-aos-delay="300">
-                        {{ $company->translate($currentLocale)?->hero_title ?? 'Breaking Language Barriers for Global Success' }}
+                        {{ $company->translate($currentLocale)?->hero_title ?? __('hero.fallback_title') }}
                     </h1>
 
                     <p class="hero-text" data-aos="fade-up" data-aos-delay="350">
-                        {{ $company->translate($currentLocale)?->hero_description ?? 'Expert translation, dubbing, subtitling, and localization services that elevate your content across cultures and languages. Connect with audiences worldwide.' }}
+                        {{ $company->translate($currentLocale)?->hero_description ?? __('hero.fallback_description') }}
                     </p>
 
                     <div class="hero-cta" data-aos="fade-up" data-aos-delay="400">
                         <a href="#services" class="cta-button">
-                            <span>Explore Services</span>
+                            <span>{{ __('hero.explore_services') }}</span>
                             <i class="bi bi-arrow-right"></i>
                         </a>
                         <a href="#contact" class="glightbox cta-link contact-btn">
                             <i class="bi bi-chat-dots"></i>
-                            <span>Chat with Us</span>
+                            <span>{{ __('hero.chat_with_us') }}</span>
                         </a>
                     </div>
                 </div>
@@ -43,7 +43,7 @@
                         </div>
                         <div class="stat-info">
                             <span class="stat-value">{{ $company->stat_projects ?? '500+' }}</span>
-                            <span class="stat-title">Projects Translated</span>
+                            <span class="stat-title">{{ __('hero.stat_projects') }}</span>
                         </div>
                     </div>
 
@@ -53,7 +53,7 @@
                         </div>
                         <div class="stat-info">
                             <span class="stat-value">{{ $company->stat_satisfaction ?? '98%' }}</span>
-                            <span class="stat-title">Client Satisfaction</span>
+                            <span class="stat-title">{{ __('hero.stat_satisfaction') }}</span>
                         </div>
                     </div>
 
@@ -63,7 +63,7 @@
                         </div>
                         <div class="stat-info">
                             <span class="stat-value">{{ $company->stat_experience ?? '15+' }}</span>
-                            <span class="stat-title">Years Experience</span>
+                            <span class="stat-title">{{ __('hero.stat_experience') }}</span>
                         </div>
                     </div>
 
@@ -73,7 +73,7 @@
                         </div>
                         <div class="stat-info">
                             <span class="stat-value">{{ $company->stat_languages ?? '50+' }}</span>
-                            <span class="stat-title">Languages Supported</span>
+                            <span class="stat-title">{{ __('hero.stat_languages') }}</span>
                         </div>
                     </div>
                 </div>

@@ -10,7 +10,7 @@
             <table class="table table-bordered table-striped" id="pricingsTable" style="width:100%">
                 <thead>
                     <tr>
-                        <th width="5%">Sort</th>
+                        <th width="5%">Order</th>
                         <th>Name (EN)</th>
                         <th>Price Label (EN)</th>
                         <th>Featured</th>

@@ -13,7 +13,7 @@ class LanguageSeeder extends Seeder
             [
                 'code' => 'en',
                 'name' => 'English',
-                'icon' => 'fi fi-us',
+                'icon' => 'flag-icon flag-icon-us',
                 'is_default' => true,
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -21,7 +21,15 @@ class LanguageSeeder extends Seeder
             [
                 'code' => 'id',
                 'name' => 'Indonesian',
-                'icon' => 'fi fi-id',
+                'icon' => 'flag-icon flag-icon-id',
+                'is_default' => false,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'code' => 'zh',
+                'name' => 'Chinese',
+                'icon' => 'flag-icon flag-icon-cn',
                 'is_default' => false,
                 'created_at' => now(),
                 'updated_at' => now(),

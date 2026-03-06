@@ -11,17 +11,18 @@
                 </a>
                 <div class="footer-contact pt-3">
                     @if(isset($company))
-                        <p>{{ $company->translate($currentLocale)?->footer_description ?? 'Professional translation, dubbing, subtitling, and localization services for global communication.' }}
+                        <p>{{ $company->translate($currentLocale)?->footer_description ?? __('footer.fallback_description') }}
                         </p>
-                        <p class="mt-3"><strong>Phone:</strong> <span>{{ $company->phone ?? '+62 812-3456-7890' }}</span>
+                        <p class="mt-3"><strong>{{ __('footer.phone') }}</strong>
+                            <span>{{ $company->phone ?? '+62 812-3456-7890' }}</span>
                         </p>
-                        <p><strong>Email:</strong> <span>{{ $company->email ?? 'contact@veridian-solutions.com' }}</span>
+                        <p><strong>{{ __('footer.email') }}</strong> <span>{{ $company->email ??
+                                'contact@veridian-solutions.com' }}</span>
                         </p>
                     @else
-                        <p>Professional translation, dubbing, subtitling, and localization services for global
-                            communication.</p>
-                        <p class="mt-3"><strong>Phone:</strong> <span>+62 812-3456-7890</span></p>
-                        <p><strong>Email:</strong> <span>contact@veridian-solutions.com</span></p>
+                        <p>{{ __('footer.fallback_description') }}</p>
+                        <p class="mt-3"><strong>{{ __('footer.phone') }}</strong> <span>+62 812-3456-7890</span></p>
+                        <p><strong>{{ __('footer.email') }}</strong> <span>contact@veridian-solutions.com</span></p>
                     @endif
                 </div>
                 <div class="social-links d-flex mt-4">
@@ -49,19 +50,24 @@
 
             {{-- Quick Links --}}
             <div class="col-lg-2 col-md-3 footer-links">
-                <h4>Quick Links</h4>
+                <h4>{{ __('footer.quick_links') }}</h4>
                 <ul>
-                    <li><a href="{{ route('home', ['locale' => $currentLocale]) }}#hero">Home</a></li>
-                    <li><a href="{{ route('about', ['locale' => $currentLocale]) }}">About Us</a></li>
-                    <li><a href="{{ route('home', ['locale' => $currentLocale]) }}#services">Services</a></li>
-                    <li><a href="{{ route('home', ['locale' => $currentLocale]) }}#portfolio">Portfolio</a></li>
-                    <li><a href="{{ route('home', ['locale' => $currentLocale]) }}#contact">Contact</a></li>
+                    <li><a href="{{ route('home', ['locale' => $currentLocale]) }}#hero">{{ __('nav.home') }}</a></li>
+                    <li><a href="{{ route('about', ['locale' => $currentLocale]) }}">{{ __('nav.about_us') }}</a></li>
+                    <li><a
+                            href="{{ route('home', ['locale' => $currentLocale]) }}#services">{{ __('nav.services') }}</a>
+                    </li>
+                    <li><a
+                            href="{{ route('home', ['locale' => $currentLocale]) }}#portfolio">{{ __('nav.portfolio') }}</a>
+                    </li>
+                    <li><a href="{{ route('home', ['locale' => $currentLocale]) }}#contact">{{ __('nav.contact') }}</a>
+                    </li>
                 </ul>
             </div>
 
             {{-- Our Services (dynamic from DB if available, fallback to static) --}}
             <div class="col-lg-2 col-md-3 footer-links">
-                <h4>Our Services</h4>
+                <h4>{{ __('footer.our_services') }}</h4>
                 <ul>
                     @if(isset($footerServices) && $footerServices->count())
                         @foreach($footerServices as $svc)
@@ -74,12 +80,17 @@
                             </li>
                         @endforeach
                     @else
-                        <li><a href="{{ route('home', ['locale' => $currentLocale]) }}#services">Document Translation</a>
+                        <li><a
+                                href="{{ route('home', ['locale' => $currentLocale]) }}#services">{{ __('footer.fallback_service_1') }}</a>
                         </li>
-                        <li><a href="{{ route('home', ['locale' => $currentLocale]) }}#services">Professional Dubbing</a>
+                        <li><a
+                                href="{{ route('home', ['locale' => $currentLocale]) }}#services">{{ __('footer.fallback_service_2') }}</a>
                         </li>
-                        <li><a href="{{ route('home', ['locale' => $currentLocale]) }}#services">Video Subtitling</a></li>
-                        <li><a href="{{ route('home', ['locale' => $currentLocale]) }}#services">Software Localization</a>
+                        <li><a
+                                href="{{ route('home', ['locale' => $currentLocale]) }}#services">{{ __('footer.fallback_service_3') }}</a>
+                        </li>
+                        <li><a
+                                href="{{ route('home', ['locale' => $currentLocale]) }}#services">{{ __('footer.fallback_service_4') }}</a>
                         </li>
                     @endif
                 </ul>
@@ -87,12 +98,12 @@
 
             {{-- Newsletter --}}
             <div class="col-lg-4 col-md-12 footer-newsletter">
-                <h4>Our Newsletter</h4>
-                <p>Subscribe to receive updates on language industry trends and Veridian Solutions news!</p>
+                <h4>{{ __('footer.our_newsletter') }}</h4>
+                <p>{{ __('footer.newsletter_description') }}</p>
                 <form action="#" method="post" class="php-email-form">
                     <div class="newsletter-form">
-                        <input type="email" name="email" placeholder="Your Email">
-                        <input type="submit" value="Subscribe">
+                        <input type="email" name="email" placeholder="{{ __('footer.placeholder_email') }}">
+                        <input type="submit" value="{{ __('footer.subscribe') }}">
                     </div>
                 </form>
             </div>
@@ -105,15 +116,15 @@
         <div class="row gy-3">
             <div class="col-md-6 order-2 order-md-1">
                 <div class="copyright">
-                    <p>&copy; <span>Copyright</span> <strong class="sitename">Veridian Solutions</strong>. All Rights
-                        Reserved.</p>
+                    <p>&copy; <span>{{ __('footer.copyright') }}</span> <strong class="sitename">Veridian
+                            Solutions</strong>. {{ __('footer.all_rights_reserved') }}</p>
                 </div>
             </div>
             <div class="col-md-6 order-1 order-md-2">
                 <div class="legal-links">
-                    <a href="#">Terms of Service</a>
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Cookies</a>
+                    <a href="#">{{ __('footer.terms_of_service') }}</a>
+                    <a href="#">{{ __('footer.privacy_policy') }}</a>
+                    <a href="#">{{ __('footer.cookies') }}</a>
                 </div>
             </div>
         </div>

@@ -37,8 +37,7 @@ class UpdateServicePricingRequest extends FormRequest
             }
             $rules["translations.{$code}.price_label"] = 'nullable|string|max:255';
             $rules["translations.{$code}.unit_label"] = 'nullable|string|max:50';
-            $rules["translations.{$code}.features_list"] = 'nullable|array';
-            $rules["translations.{$code}.features_list.*"] = 'string|max:255';
+            $rules["translations.{$code}.features_raw"] = 'nullable|string';
         }
 
         return $rules;
