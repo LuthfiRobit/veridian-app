@@ -12,7 +12,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- [Favicon] icon -->
-    <link rel="icon" href="{{ asset('company-dashboard/assets/images/favicon.svg') }}" type="image/x-icon" />
+    <link rel="icon" href="{{ asset('company-landing/assets/img/WEB-LOGO-SMALL-NO-NAME.png') }}" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="{{ asset('company-landing/assets/img/WEB-LOGO-SMALL-NAME.png') }}">
     <!-- [Google Font] Family -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
         id="main-font-link" />

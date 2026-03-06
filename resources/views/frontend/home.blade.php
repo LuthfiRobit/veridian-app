@@ -3,7 +3,7 @@
 {{-- Meta Tags --}}
 @section('meta_title', $company->translate($currentLocale)?->name ?? 'Veridian Solutions - Professional Language Services')
 @section('meta_description', Str::limit($company->translate($currentLocale)?->about_description ?? 'Professional translation, dubbing, subtitling, and localization services.', 160))
-@section('meta_image', $company->logo_image_path ? asset('storage/' . $company->logo_image_path) : asset('company-landing/assets/img/WEB LOGO ORIGINAL.png'))
+@section('meta_image', $company->logo_image_path ? asset('storage/' . $company->logo_image_path) : asset('company-landing/assets/img/WEB-LOGO-ORIGINAL.png'))
 
 @section('content')
 

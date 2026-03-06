@@ -5,7 +5,7 @@
         {{-- Logo --}}
         <a href="{{ route('home', ['locale' => $currentLocale]) }}"
             class="logo d-flex align-items-center me-auto me-xl-0">
-            <img src="{{ asset('company-landing/assets/img/WEB LOGO ORIGINAL.png') }}"
+            <img src="{{ asset('company-landing/assets/img/WEB-LOGO-ORIGINAL.png') }}"
                 alt="{{ __('alt.veridian_logo') }}" style="max-height: 48px;">
         </a>
 
