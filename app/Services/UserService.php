@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Arr;
 
+use Illuminate\Support\Facades\Storage;
+
 class UserService
 {
     protected $userRepository;
@@ -33,6 +35,14 @@ class UserService
             // Hash password
             if (isset($data['password'])) {
                 $data['password'] = Hash::make($data['password']);
+            }
+
+            // Handle Avatar Upload
+            if (isset($data['avatar']) && $data['avatar'] instanceof \Illuminate\Http\UploadedFile) {
+                $file = $data['avatar'];
+                $filename = time() . '_' . $file->getClientOriginalName();
+                $path = $file->storeAs('avatars', $filename, 'public');
+                $data['avatar'] = 'storage/' . $path;
             }
 
             $user = $this->userRepository->createUser($data);
@@ -66,6 +76,19 @@ class UserService
                 $data['password'] = Hash::make($data['password']);
             } else {
                 $data = Arr::except($data, array('password'));
+            }
+
+            // Handle Avatar Upload
+            if (isset($data['avatar']) && $data['avatar'] instanceof \Illuminate\Http\UploadedFile) {
+                $oldUser = $this->userRepository->getUserById($id);
+                if ($oldUser->avatar) {
+                    Storage::disk('public')->delete(str_replace('storage/', '', $oldUser->avatar));
+                }
+
+                $file = $data['avatar'];
+                $filename = time() . '_' . $file->getClientOriginalName();
+                $path = $file->storeAs('avatars', $filename, 'public');
+                $data['avatar'] = 'storage/' . $path;
             }
 
             $user = $this->userRepository->updateUser($id, $data);

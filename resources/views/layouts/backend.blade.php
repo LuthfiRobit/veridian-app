@@ -257,8 +257,8 @@
                         <a class="pc-head-link head-link-primary dropdown-toggle arrow-none me-0"
                             data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false"
                             aria-expanded="false">
-                            <img src="{{ asset('company-dashboard/assets/images/user/avatar-2.jpg') }}" alt="user-image"
-                                class="user-avtar" />
+                            <img src="{{ !empty(Auth::user()->avatar) ? asset(Auth::user()->avatar) : asset('company-dashboard/assets/images/user/avatar-2.jpg') }}" alt="user-image"
+                                class="user-avtar" style="object-fit: cover; width: 40px; height: 40px;" />
                             <span><i class="ti ti-settings"></i></span>
                         </a>
                         <div class="dropdown-menu dropdown-user-profile dropdown-menu-end pc-h-dropdown">
@@ -267,7 +267,7 @@
                                     Hello, <span class="small text-muted">{{ Auth::user()->name ?? 'Guest' }}</span>
                                 </h4>
                                 <hr />
-                                <a href="#!" class="dropdown-item">
+                                <a href="{{ route('admin.profile.index') }}" class="dropdown-item">
                                     <i class="ti ti-user"></i>
                                     <span>My Profile</span>
                                 </a>

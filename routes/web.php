@@ -115,4 +115,8 @@ Route::middleware(['auth', 'ip.whitelist'])->prefix('admin')->name('admin.')->gr
 
     // Certifications (CRUD)
     Route::resource('certifications', \App\Http\Controllers\Backend\CertificationController::class)->except(['show'])->middleware('permission:manage content');
+
+    // Profile Management
+    Route::get('profile', [App\Http\Controllers\Backend\ProfileController::class, 'index'])->name('profile.index');
+    Route::put('profile', [App\Http\Controllers\Backend\ProfileController::class, 'update'])->name('profile.update');
 });
