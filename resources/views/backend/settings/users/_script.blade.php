@@ -78,6 +78,8 @@
         });
 
         $('#createNewUser').click(function () {
+            $('.is-invalid').removeClass('is-invalid');
+            $('.invalid-feedback').remove();
             $('#saveBtn').val("create-user");
             $('#id_user').val('');
             $('#userForm').trigger("reset");
@@ -87,6 +89,8 @@
         });
 
         $('body').on('click', '.edit', function () {
+            $('.is-invalid').removeClass('is-invalid');
+            $('.invalid-feedback').remove();
             var id = $(this).data('id');
             $.get("{{ route('admin.users.index') }}" + '/' + id + '/edit', function (data) {
                 $('#modelHeading').html("Edit User");
@@ -106,6 +110,8 @@
 
         $('#saveBtn').click(function (e) {
             e.preventDefault();
+            $('.is-invalid').removeClass('is-invalid');
+            $('.invalid-feedback').remove();
             $(this).html('Sending..');
 
             var id = $('#id_user').val();
@@ -134,14 +140,78 @@
                 error: function (data) {
                     console.log('Error:', data);
                     $('#saveBtn').html('Save Changes');
-                    var errors = data.responseJSON.error || data.responseJSON.message;
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: errors,
-                    });
+                    
+                    if (data.status === 422) {
+                        var errors = data.responseJSON.errors;
+                        $.each(errors, function (key, value) {
+                            var input = $('[name="' + key + '"]');
+                            if (key.includes('.')) {
+                                // Handle array names like roles[]
+                                key = key.split('.')[0] + '[]';
+                                input = $('[name="' + key + '"]');
+                            }
+                            
+                            input.addClass('is-invalid');
+                            // If it's a select or special input, append after the parent/container
+                            if (input.hasClass('ts-control')) {
+                                input.closest('.mb-3').append('<div class="invalid-feedback d-block">' + value[0] + '</div>');
+                            } else {
+                                input.after('<div class="invalid-feedback">' + value[0] + '</div>');
+                            }
+                        });
+                        
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Validation Error',
+                            text: 'Please check the form for errors.',
+                        });
+                    } else {
+                        var errors = data.responseJSON.error || data.responseJSON.message;
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: errors,
+                        });
+                    }
                 }
             });
+        });
+
+        $('body').on('click', '.btn-reset-password', function () {
+            var id = $(this).data("id");
+
+            Swal.fire({
+                title: 'Reset Password?',
+                text: "Password will be reset to: veridian1234",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#ffc107',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, reset it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ url('admin/users') }}/" + id + "/reset-password",
+                        success: function (data) {
+                            table.draw();
+                            Swal.fire(
+                                'Reset!',
+                                data.success,
+                                'success'
+                            )
+                        },
+                        error: function (data) {
+                            console.log('Error:', data);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: data.responseJSON.error,
+                            });
+                        }
+                    });
+                }
+            })
         });
 
         $('body').on('click', '.btn-delete', function () {

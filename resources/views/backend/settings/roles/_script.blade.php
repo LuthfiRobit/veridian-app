@@ -57,6 +57,8 @@
         });
 
         $('#createNewRole').click(function () {
+            $('.is-invalid').removeClass('is-invalid');
+            $('.invalid-feedback').remove();
             $('#saveBtn').val("create-role");
             $('#id').val('');
             $('#roleForm').trigger("reset");
@@ -66,6 +68,8 @@
         });
 
         $('body').on('click', '.edit', function () {
+            $('.is-invalid').removeClass('is-invalid');
+            $('.invalid-feedback').remove();
             var id = $(this).data('id');
             $.get("{{ route('admin.roles.index') }}" + '/' + id + '/edit', function (data) {
                 $('#modelHeading').html("Edit Role");
@@ -86,6 +90,8 @@
 
         $('#saveBtn').click(function (e) {
             e.preventDefault();
+            $('.is-invalid').removeClass('is-invalid');
+            $('.invalid-feedback').remove();
             $(this).html('Sending..');
 
             var id = $('#id').val();
@@ -114,12 +120,34 @@
                 error: function (data) {
                     console.log('Error:', data);
                     $('#saveBtn').html('Save Changes');
-                    var errors = data.responseJSON.error || data.responseJSON.message;
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: errors,
-                    });
+                    
+                    if (data.status === 422) {
+                        var errors = data.responseJSON.errors;
+                        $.each(errors, function (key, value) {
+                            var input = $('[name="' + key + '"]');
+                            if (key.includes('.')) {
+                                // Handle array names like permissions[]
+                                key = key.split('.')[0] + '[]';
+                                input = $('[name="' + key + '"]');
+                            }
+                            
+                            input.addClass('is-invalid');
+                            input.after('<div class="invalid-feedback d-block">' + value[0] + '</div>');
+                        });
+                        
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Validation Error',
+                            text: 'Please check the form for errors.',
+                        });
+                    } else {
+                        var errors = data.responseJSON.error || data.responseJSON.message;
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: errors,
+                        });
+                    }
                 }
             });
         });

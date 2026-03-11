@@ -5,6 +5,11 @@
 @push('styles')
     <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap5.min.css" rel="stylesheet">
+    <style>
+        .swal2-container {
+            z-index: 9999 !important;
+        }
+    </style>
 @endpush
 
 @section('content')

@@ -38,6 +38,7 @@ class UserController extends Controller
                 })
                 ->addColumn('action', function ($row) {
                     $btn = '<a href="javascript:void(0)" data-id="' . $row->id_user . '" class="edit btn btn-icon btn-light-primary btn-sm" title="Edit"><i class="ti ti-edit"></i></a>';
+                    $btn = $btn . ' <a href="javascript:void(0)" data-id="' . $row->id_user . '" class="btn btn-icon btn-light-warning btn-sm btn-reset-password" title="Reset Password"><i class="ti ti-key"></i></a>';
                     $btn = $btn . ' <a href="javascript:void(0)" data-id="' . $row->id_user . '" class="btn btn-icon btn-light-danger btn-sm btn-delete" title="Delete"><i class="ti ti-trash"></i></a>';
                     return $btn;
                 })
@@ -47,6 +48,16 @@ class UserController extends Controller
 
         $roles = Role::pluck('name', 'name')->all();
         return view('backend.settings.users.index', compact('roles'));
+    }
+
+    public function resetPassword($id)
+    {
+        try {
+            $this->userService->resetPassword($id);
+            return response()->json(['success' => 'Password reset to veridian1234 successfully.']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
 
     public function store(StoreUserRequest $request)

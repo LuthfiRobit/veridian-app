@@ -127,6 +127,28 @@ class UserService
         return $user;
     }
 
+    public function resetPassword($id)
+    {
+        DB::beginTransaction();
+        try {
+            $user = $this->userRepository->getUserById($id);
+            $this->userRepository->updateUser($id, ['password' => Hash::make('veridian1234')]);
+
+            // Log Activity
+            activity()
+                ->performedOn($user)
+                ->causedBy(auth()->user())
+                ->withProperties(['name' => $user->name, 'email' => $user->email])
+                ->log('Reset User Password');
+
+            DB::commit();
+            return $user;
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+    }
+
     public function getUserRoles($id)
     {
         $user = $this->userRepository->getUserById($id);

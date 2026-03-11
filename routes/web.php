@@ -63,6 +63,7 @@ Route::middleware(['auth', 'ip.whitelist'])->prefix('admin')->name('admin.')->gr
 
     // RBAC
     Route::resource('roles', App\Http\Controllers\Backend\RoleController::class)->middleware('permission:manage roles');
+    Route::post('users/{user}/reset-password', [App\Http\Controllers\Backend\UserController::class, 'resetPassword'])->name('users.reset-password')->middleware('permission:manage users');
     Route::resource('users', App\Http\Controllers\Backend\UserController::class)->middleware('permission:manage users');
 
     // Content Management
