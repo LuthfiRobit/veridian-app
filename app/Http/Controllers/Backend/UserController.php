@@ -46,6 +46,10 @@ class UserController extends Controller
                 ->make(true);
         }
 
+        activity()
+            ->causedBy(auth()->user())
+            ->log('Viewed Users Management');
+
         $roles = Role::pluck('name', 'name')->all();
         return view('backend.settings.users.index', compact('roles'));
     }
@@ -74,6 +78,12 @@ class UserController extends Controller
     {
         $user = $this->userService->getUserById($id);
         $userRoles = $this->userService->getUserRoles($id);
+
+        activity()
+            ->performedOn($user)
+            ->causedBy(auth()->user())
+            ->log('Accessing User Edit Data (JSON)');
+
         return response()->json([
             'user' => $user,
             'userRoles' => $userRoles

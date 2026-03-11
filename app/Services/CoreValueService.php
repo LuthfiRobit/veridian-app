@@ -49,6 +49,11 @@ class CoreValueService
             $coreValueData = array_merge($coreValueData, $translations);
             $coreValue = $this->coreValueRepository->create($coreValueData);
 
+            activity()
+                ->performedOn($coreValue)
+                ->causedBy(auth()->user())
+                ->log('Created Core Value');
+
             DB::commit();
             return $coreValue;
         } catch (\Exception $e) {
@@ -90,6 +95,11 @@ class CoreValueService
 
             $updatedCoreValue = $this->coreValueRepository->findById($id);
 
+            activity()
+                ->performedOn($updatedCoreValue)
+                ->causedBy(auth()->user())
+                ->log('Updated Core Value');
+
             DB::commit();
             return $updatedCoreValue;
         } catch (\Exception $e) {
@@ -104,7 +114,14 @@ class CoreValueService
         $coreValue = $this->coreValueRepository->findById($id);
 
         if ($coreValue) {
-            return $this->coreValueRepository->delete($id);
+            $deleted = $this->coreValueRepository->delete($id);
+
+            activity()
+                ->performedOn($coreValue)
+                ->causedBy(auth()->user())
+                ->log('Deleted Core Value');
+
+            return $deleted;
         }
 
         return false;

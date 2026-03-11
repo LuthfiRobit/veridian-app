@@ -119,6 +119,13 @@ class ProjectImageController extends Controller
                 Storage::disk('public')->delete(str_replace('storage/', '', $image->image_path));
             }
             $image->delete();
+
+            activity()
+                ->performedOn($image)
+                ->causedBy(auth()->user())
+                ->withProperties(['filename' => basename($image->image_path)])
+                ->log('Deleted Project Image');
+
             return response()->json(['success' => 'Image deleted successfully.']);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);

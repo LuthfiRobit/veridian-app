@@ -63,6 +63,10 @@ class BlogPostController extends Controller
                 ->make(true);
         }
 
+        activity()
+            ->causedBy(auth()->user())
+            ->log('Viewed Blog Posts Management');
+
         return view('backend.blog.posts.index');
     }
 
@@ -73,6 +77,10 @@ class BlogPostController extends Controller
             ->where('is_active', true)
             ->orderByDesc('is_default')
             ->get();
+
+        activity()
+            ->causedBy(auth()->user())
+            ->log('Accessing Create Blog Post Page');
 
         return view('backend.blog.posts.create', compact('categories', 'sortedLanguages'));
     }
@@ -91,6 +99,11 @@ class BlogPostController extends Controller
             ->where('is_active', true)
             ->orderByDesc('is_default')
             ->get();
+
+        activity()
+            ->performedOn($post)
+            ->causedBy(auth()->user())
+            ->log('Accessing Edit Blog Post Page');
 
         return view('backend.blog.posts.edit', compact('post', 'categories', 'sortedLanguages'));
     }

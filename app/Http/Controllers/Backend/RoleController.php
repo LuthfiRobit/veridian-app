@@ -41,6 +41,10 @@ class RoleController extends Controller
                 ->rawColumns(['permissions', 'action'])
                 ->make(true);
         }
+        activity()
+            ->causedBy(auth()->user())
+            ->log('Viewed Roles Management');
+
         $permissions = Permission::get(); // Pass all permissions for the modal
         return view('backend.settings.roles.index', compact('permissions'));
     }
@@ -59,6 +63,12 @@ class RoleController extends Controller
     {
         $role = $this->roleService->getRoleById($id);
         $rolePermissions = $this->roleService->getRolePermissions($id);
+
+        activity()
+            ->performedOn($role)
+            ->causedBy(auth()->user())
+            ->log('Accessing Role Edit Data (JSON)');
+
         return response()->json([
             'role' => $role,
             'rolePermissions' => $rolePermissions

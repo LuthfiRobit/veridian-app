@@ -48,6 +48,10 @@ class ServiceController extends Controller
                 ->make(true);
         }
 
+        activity()
+            ->causedBy(auth()->user())
+            ->log('Viewed Services Management');
+
         return view('backend.services.index');
     }
 
@@ -57,6 +61,10 @@ class ServiceController extends Controller
             ->where('is_active', true)
             ->orderByDesc('is_default')
             ->get();
+
+        activity()
+            ->causedBy(auth()->user())
+            ->log('Accessing Create Service Page');
 
         return view('backend.services.create', compact('sortedLanguages'));
     }
@@ -78,6 +86,11 @@ class ServiceController extends Controller
             ->where('is_active', true)
             ->orderByDesc('is_default')
             ->get();
+
+        activity()
+            ->performedOn($service)
+            ->causedBy(auth()->user())
+            ->log('Accessing Edit Service Page');
 
         return view('backend.services.edit', compact('service', 'sortedLanguages'));
     }

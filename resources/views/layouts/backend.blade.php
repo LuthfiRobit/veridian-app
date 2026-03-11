@@ -210,8 +210,12 @@
                         <ul class="pc-submenu">
                             <li class="pc-item"><a class="pc-link"
                                     href="{{ route('admin.languages.index') }}">Languages</a></li>
-                            <li class="pc-item"><a class="pc-link" href="{{ route('admin.ip-whitelists.index') }}">IP
-                                    Whitelists</a></li>
+                            <li class="pc-item {{ request()->routeIs('admin.ip-whitelists.*') ? 'active' : '' }}">
+                                <a class="pc-link" href="{{ route('admin.ip-whitelists.index') }}">IP Whitelists</a>
+                            </li>
+                            <li class="pc-item {{ request()->routeIs('admin.activity-logs.*') ? 'active' : '' }}">
+                                <a class="pc-link" href="{{ route('admin.activity-logs.index') }}">Activity Logs</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="pc-item pc-hasmenu">

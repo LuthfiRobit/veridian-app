@@ -51,12 +51,20 @@ class CoreValueController extends Controller
                 ->make(true);
         }
 
+        activity()
+            ->causedBy(auth()->user())
+            ->log('Viewed Core Values Management');
+
         return view('backend.core-values.index');
     }
 
     public function create()
     {
         $sortedLanguages = Language::where('is_active', true)->orderBy('is_default', 'desc')->get();
+        activity()
+            ->causedBy(auth()->user())
+            ->log('Accessing Create Core Value Page');
+
         return view('backend.core-values.create', compact('sortedLanguages'));
     }
 
@@ -80,6 +88,11 @@ class CoreValueController extends Controller
         }
 
         $sortedLanguages = Language::where('is_active', true)->orderBy('is_default', 'desc')->get();
+        activity()
+            ->performedOn($coreValue)
+            ->causedBy(auth()->user())
+            ->log('Accessing Edit Core Value Page');
+
         return view('backend.core-values.edit', compact('coreValue', 'sortedLanguages'));
     }
 

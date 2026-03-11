@@ -62,6 +62,12 @@ class TestimonialService
 
             $testimonial = $this->testimonialRepository->create($testimonialData);
 
+            activity()
+                ->performedOn($testimonial)
+                ->causedBy(auth()->user())
+                ->withProperties(['client' => $testimonial->client_name])
+                ->log('Created Testimonial');
+
             DB::commit();
 
             return $testimonial;
@@ -124,6 +130,12 @@ class TestimonialService
             // Fetch the updated testimonial
             $updatedTestimonial = $this->testimonialRepository->findById($id);
 
+            activity()
+                ->performedOn($updatedTestimonial)
+                ->causedBy(auth()->user())
+                ->withProperties(['client' => $updatedTestimonial->client_name])
+                ->log('Updated Testimonial');
+
             DB::commit();
 
             return $updatedTestimonial;
@@ -143,7 +155,15 @@ class TestimonialService
             if ($testimonial->avatar_path) {
                 Storage::disk('public')->delete($testimonial->avatar_path);
             }
-            return $this->testimonialRepository->delete($id);
+            $deleted = $this->testimonialRepository->delete($id);
+
+            activity()
+                ->performedOn($testimonial)
+                ->causedBy(auth()->user())
+                ->withProperties(['client' => $testimonial->client_name])
+                ->log('Deleted Testimonial');
+
+            return $deleted;
         }
 
         return false;

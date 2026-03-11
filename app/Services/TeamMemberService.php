@@ -51,6 +51,12 @@ class TeamMemberService
                 $member->translateOrNew($locale)->fill($attrs)->save();
             }
 
+            activity()
+                ->performedOn($member)
+                ->causedBy(auth()->user())
+                ->withProperties(['name' => $member->name])
+                ->log('Created Team Member');
+
             DB::commit();
             return $member;
         } catch (\Exception $e) {
@@ -92,13 +98,16 @@ class TeamMemberService
             $this->teamMemberRepository->update($id, $data);
 
             // 5. Refresh model and save translations
-            $member = $this->teamMemberRepository->findById($id);
-            foreach ($translations as $locale => $attrs) {
-                $member->translateOrNew($locale)->fill($attrs)->save();
-            }
+            $updatedMember = $this->teamMemberRepository->findById($id);
+
+            activity()
+                ->performedOn($updatedMember)
+                ->causedBy(auth()->user())
+                ->withProperties(['name' => $updatedMember->name])
+                ->log('Updated Team Member');
 
             DB::commit();
-            return $member;
+            return $updatedMember;
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error('Error updating team member: ' . $e->getMessage(), ['trace' => $e->getTraceAsString()]);
@@ -113,7 +122,15 @@ class TeamMemberService
             if ($member->photo_path) {
                 Storage::disk('public')->delete($member->photo_path);
             }
-            return $this->teamMemberRepository->delete($id);
+            $deleted = $this->teamMemberRepository->delete($id);
+
+            activity()
+                ->performedOn($member)
+                ->causedBy(auth()->user())
+                ->withProperties(['name' => $member->name])
+                ->log('Deleted Team Member');
+
+            return $deleted;
         }
         return false;
     }

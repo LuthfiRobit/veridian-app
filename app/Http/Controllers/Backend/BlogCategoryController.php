@@ -58,6 +58,10 @@ class BlogCategoryController extends Controller
             ->orderByDesc('is_default')
             ->get();
 
+        activity()
+            ->causedBy(auth()->user())
+            ->log('Viewed Blog Categories Management');
+
         return view('backend.blog.categories.index', compact('sortedLanguages'));
     }
 
@@ -70,6 +74,12 @@ class BlogCategoryController extends Controller
     public function edit(BlogCategory $blog_category)
     {
         $blog_category->load('translations');
+
+        activity()
+            ->performedOn($blog_category)
+            ->causedBy(auth()->user())
+            ->log('Accessing Blog Category Edit Data (JSON)');
+
         return response()->json($blog_category);
     }
 

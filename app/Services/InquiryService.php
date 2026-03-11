@@ -25,11 +25,27 @@ class InquiryService
 
     public function markAsRead($id)
     {
-        return $this->inquiryRepository->markAsRead($id);
+        $inquiry = $this->inquiryRepository->findById($id);
+        $result = $this->inquiryRepository->markAsRead($id);
+
+        activity()
+            ->performedOn($inquiry)
+            ->causedBy(auth()->user())
+            ->log('Marked Inquiry as Read');
+
+        return $result;
     }
 
     public function deleteInquiry($id)
     {
-        return $this->inquiryRepository->delete($id);
+        $inquiry = $this->inquiryRepository->findById($id);
+        $result = $this->inquiryRepository->delete($id);
+
+        activity()
+            ->performedOn($inquiry)
+            ->causedBy(auth()->user())
+            ->log('Deleted Inquiry');
+
+        return $result;
     }
 }

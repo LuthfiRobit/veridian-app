@@ -49,6 +49,11 @@ class CompanyTimelineService
             $timelineData = array_merge($timelineData, $translations);
             $timeline = $this->repository->create($timelineData);
 
+            activity()
+                ->performedOn($timeline)
+                ->causedBy(auth()->user())
+                ->log('Created Company Timeline');
+
             DB::commit();
             return $timeline;
         } catch (\Exception $e) {
@@ -88,6 +93,11 @@ class CompanyTimelineService
             $this->repository->update($id, $timelineData);
             $updated = $this->repository->findById($id);
 
+            activity()
+                ->performedOn($updated)
+                ->causedBy(auth()->user())
+                ->log('Updated Company Timeline');
+
             DB::commit();
             return $updated;
         } catch (\Exception $e) {
@@ -101,7 +111,14 @@ class CompanyTimelineService
     {
         $timeline = $this->repository->findById($id);
         if ($timeline) {
-            return $this->repository->delete($id);
+            $deleted =  $this->repository->delete($id);
+
+            activity()
+                ->performedOn($timeline)
+                ->causedBy(auth()->user())
+                ->log('Deleted Company Timeline');
+
+            return $deleted;
         }
         return false;
     }

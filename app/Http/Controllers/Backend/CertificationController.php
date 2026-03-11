@@ -51,12 +51,20 @@ class CertificationController extends Controller
                 ->make(true);
         }
 
+        activity()
+            ->causedBy(auth()->user())
+            ->log('Viewed Certifications Management');
+
         return view('backend.certifications.index');
     }
 
     public function create()
     {
         $sortedLanguages = Language::where('is_active', true)->orderBy('is_default', 'desc')->get();
+        activity()
+            ->causedBy(auth()->user())
+            ->log('Accessing Create Certification Page');
+
         return view('backend.certifications.create', compact('sortedLanguages'));
     }
 
@@ -80,6 +88,11 @@ class CertificationController extends Controller
         }
 
         $sortedLanguages = Language::where('is_active', true)->orderBy('is_default', 'desc')->get();
+        activity()
+            ->performedOn($certification)
+            ->causedBy(auth()->user())
+            ->log('Accessing Edit Certification Page');
+
         return view('backend.certifications.edit', compact('certification', 'sortedLanguages'));
     }
 

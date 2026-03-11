@@ -17,6 +17,11 @@ class ProjectStatController extends Controller
     {
         $query = $project->stats()->with('translations');
 
+        activity()
+            ->performedOn($project)
+            ->causedBy(auth()->user())
+            ->log('Fetched Project Statistics for ' . $project->getTranslated('title'));
+
         return DataTables::of($query)
             ->addIndexColumn()
             ->addColumn('action', function ($row) {
@@ -44,6 +49,11 @@ class ProjectStatController extends Controller
                 }
             }
             $stat->save();
+
+            activity()
+                ->performedOn($stat)
+                ->causedBy(auth()->user())
+                ->log('Added Statistic to Project');
 
             DB::commit();
             return response()->json(['success' => 'Stat added successfully.']);
@@ -85,6 +95,11 @@ class ProjectStatController extends Controller
             }
             $stat->save();
 
+            activity()
+                ->performedOn($stat)
+                ->causedBy(auth()->user())
+                ->log('Updated Project Statistic');
+
             DB::commit();
             return response()->json(['success' => 'Stat updated successfully.']);
         } catch (\Exception $e) {
@@ -100,6 +115,12 @@ class ProjectStatController extends Controller
         }
 
         $stat->delete();
+
+        activity()
+            ->performedOn($stat)
+            ->causedBy(auth()->user())
+            ->log('Deleted Project Statistic');
+
         return response()->json(['success' => 'Stat deleted successfully.']);
     }
 }

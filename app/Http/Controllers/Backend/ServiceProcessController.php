@@ -17,6 +17,11 @@ class ServiceProcessController extends Controller
     {
         $query = $service->processes()->with('translations')->orderBy('step_number');
 
+        activity()
+            ->performedOn($service)
+            ->causedBy(auth()->user())
+            ->log('Fetched Service Process Steps for ' . $service->getTranslated('title'));
+
         return DataTables::of($query)
             ->addIndexColumn()
             ->addColumn('action', function ($row) {
@@ -39,6 +44,12 @@ class ServiceProcessController extends Controller
             $this->saveTranslations($process, $translations);
 
             DB::commit();
+
+            activity()
+                ->performedOn($process)
+                ->causedBy(auth()->user())
+                ->log('Added Process Step to Service');
+
             return response()->json(['success' => 'Process step added successfully.']);
         } catch (\Exception $e) {
             DB::rollBack();
@@ -63,6 +74,12 @@ class ServiceProcessController extends Controller
             $this->saveTranslations($process, $translations);
 
             DB::commit();
+
+            activity()
+                ->performedOn($process)
+                ->causedBy(auth()->user())
+                ->log('Updated Service Process Step');
+
             return response()->json(['success' => 'Process step updated successfully.']);
         } catch (\Exception $e) {
             DB::rollBack();
@@ -74,6 +91,12 @@ class ServiceProcessController extends Controller
     {
         try {
             $process->delete();
+
+            activity()
+                ->performedOn($process)
+                ->causedBy(auth()->user())
+                ->log('Deleted Service Process Step');
+
             return response()->json(['success' => 'Process step deleted successfully.']);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);

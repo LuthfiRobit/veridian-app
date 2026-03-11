@@ -56,6 +56,10 @@ class InquiryController extends Controller
                 ->make(true);
         }
 
+        activity()
+            ->causedBy(auth()->user())
+            ->log('Viewed Inquiries Management');
+
         return view('backend.inquiries.index');
     }
 
@@ -63,6 +67,11 @@ class InquiryController extends Controller
     {
         $inquiry = $this->inquiryService->getInquiryById($id);
         $this->inquiryService->markAsRead($id);
+
+        activity()
+            ->performedOn($inquiry)
+            ->causedBy(auth()->user())
+            ->log('Viewed Inquiry Detail');
 
         return view('backend.inquiries.show', compact('inquiry'));
     }

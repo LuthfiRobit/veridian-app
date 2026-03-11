@@ -91,6 +91,11 @@ class CompanyProfileController extends Controller
                 Cache::forget("footer_services_{$loc}");
             }
 
+            activity()
+                ->performedOn($profile)
+                ->causedBy(auth()->user())
+                ->log('Updated Company Profile Settings');
+
             return redirect()->route('admin.company-profile.edit')->with('success', 'Company profile updated successfully.');
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage())->withInput();

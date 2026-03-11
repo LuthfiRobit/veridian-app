@@ -54,12 +54,20 @@ class CompanyTimelineController extends Controller
                 ->make(true);
         }
 
+        activity()
+            ->causedBy(auth()->user())
+            ->log('Viewed Company Timeline Management');
+
         return view('backend.company-timelines.index');
     }
 
     public function create()
     {
         $sortedLanguages = Language::where('is_active', true)->orderBy('is_default', 'desc')->get();
+        activity()
+            ->causedBy(auth()->user())
+            ->log('Accessing Create Company Timeline Page');
+
         return view('backend.company-timelines.create', compact('sortedLanguages'));
     }
 
@@ -83,6 +91,11 @@ class CompanyTimelineController extends Controller
         }
 
         $sortedLanguages = Language::where('is_active', true)->orderBy('is_default', 'desc')->get();
+        activity()
+            ->performedOn($timeline)
+            ->causedBy(auth()->user())
+            ->log('Accessing Edit Company Timeline Page');
+
         return view('backend.company-timelines.edit', compact('timeline', 'sortedLanguages'));
     }
 

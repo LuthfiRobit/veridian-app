@@ -44,6 +44,10 @@ class ProjectCategoryController extends Controller
                 ->make(true);
         }
 
+        activity()
+            ->causedBy(auth()->user())
+            ->log('Viewed Project Categories Management');
+
         return view('backend.project_categories.index');
     }
 
@@ -53,6 +57,10 @@ class ProjectCategoryController extends Controller
             ->where('is_active', true)
             ->orderByDesc('is_default')
             ->get();
+        activity()
+            ->causedBy(auth()->user())
+            ->log('Accessing Create Project Category Page');
+
         return view('backend.project_categories.create', compact('sortedLanguages'));
     }
 
@@ -74,6 +82,11 @@ class ProjectCategoryController extends Controller
         }
         $category->save();
 
+        activity()
+            ->performedOn($category)
+            ->causedBy(auth()->user())
+            ->log('Created Project Category');
+
         return redirect()->route('admin.project-categories.index')->with('success', 'Category created successfully.');
     }
 
@@ -84,6 +97,11 @@ class ProjectCategoryController extends Controller
             ->where('is_active', true)
             ->orderByDesc('is_default')
             ->get();
+        activity()
+            ->performedOn($category)
+            ->causedBy(auth()->user())
+            ->log('Accessing Edit Project Category Page');
+
         return view('backend.project_categories.edit', compact('category', 'sortedLanguages'));
     }
 
@@ -105,6 +123,11 @@ class ProjectCategoryController extends Controller
         }
         $category->save();
 
+        activity()
+            ->performedOn($category)
+            ->causedBy(auth()->user())
+            ->log('Updated Project Category');
+
         return redirect()->route('admin.project-categories.index')->with('success', 'Category updated successfully.');
     }
 
@@ -112,6 +135,12 @@ class ProjectCategoryController extends Controller
     {
         $category = ProjectCategory::findOrFail($id);
         $category->delete();
+
+        activity()
+            ->performedOn($category)
+            ->causedBy(auth()->user())
+            ->log('Deleted Project Category');
+
         return response()->json(['success' => 'Category deleted successfully.']);
     }
 }

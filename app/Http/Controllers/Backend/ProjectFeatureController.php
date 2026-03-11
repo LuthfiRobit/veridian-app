@@ -19,7 +19,11 @@ class ProjectFeatureController extends Controller
 
         return DataTables::of($query)
             ->addIndexColumn()
-            ->addColumn('action', function ($row) {
+            ->addColumn('action', function ($row) use ($project) {
+                activity()
+                    ->performedOn($project)
+                    ->causedBy(auth()->user())
+                    ->log('Fetched Project Features for ' . $project->getTranslated('title'));
                 $btn = '<button type="button" class="btn btn-icon btn-light-warning btn-sm edit-feature" data-id="' . $row->id_project_feature . '" title="Edit"><i class="ti ti-edit"></i></button>';
                 $btn .= ' <button type="button" class="btn btn-icon btn-light-danger btn-sm delete-feature" data-id="' . $row->id_project_feature . '" title="Delete"><i class="ti ti-trash"></i></button>';
                 return $btn;
@@ -98,6 +102,12 @@ class ProjectFeatureController extends Controller
         }
 
         $feature->delete();
+
+        activity()
+            ->performedOn($feature)
+            ->causedBy(auth()->user())
+            ->log('Deleted Project Feature');
+
         return response()->json(['success' => 'Feature deleted successfully.']);
     }
 }

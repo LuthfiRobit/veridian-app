@@ -48,6 +48,11 @@ class CertificationService
             $certData = array_merge($certData, $translations);
             $cert = $this->repository->create($certData);
 
+            activity()
+                ->performedOn($cert)
+                ->causedBy(auth()->user())
+                ->log('Created Certification');
+
             DB::commit();
             return $cert;
         } catch (\Exception $e) {
@@ -86,6 +91,11 @@ class CertificationService
             $this->repository->update($id, $certData);
             $updated = $this->repository->findById($id);
 
+            activity()
+                ->performedOn($updated)
+                ->causedBy(auth()->user())
+                ->log('Updated Certification');
+
             DB::commit();
             return $updated;
         } catch (\Exception $e) {
@@ -99,7 +109,14 @@ class CertificationService
     {
         $cert = $this->repository->findById($id);
         if ($cert) {
-            return $this->repository->delete($id);
+            $deleted = $this->repository->delete($id);
+
+            activity()
+                ->performedOn($cert)
+                ->causedBy(auth()->user())
+                ->log('Deleted Certification');
+
+            return $deleted;
         }
         return false;
     }

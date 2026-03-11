@@ -54,6 +54,10 @@ class ProjectController extends Controller
                 ->make(true);
         }
 
+        activity()
+            ->causedBy(auth()->user())
+            ->log('Viewed Projects Management');
+
         return view('backend.projects.index');
     }
 
@@ -64,6 +68,10 @@ class ProjectController extends Controller
             ->orderByDesc('is_default')
             ->get();
         $categories = ProjectCategory::where('is_active', true)->get();
+
+        activity()
+            ->causedBy(auth()->user())
+            ->log('Accessing Create Project Page');
 
         return view('backend.projects.create', compact('sortedLanguages', 'categories'));
     }
@@ -86,6 +94,11 @@ class ProjectController extends Controller
             ->orderByDesc('is_default')
             ->get();
         $categories = ProjectCategory::where('is_active', true)->get();
+
+        activity()
+            ->performedOn($project)
+            ->causedBy(auth()->user())
+            ->log('Accessing Edit Project Page');
 
         return view('backend.projects.edit', compact('project', 'sortedLanguages', 'categories'));
     }

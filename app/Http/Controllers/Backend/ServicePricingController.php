@@ -17,6 +17,11 @@ class ServicePricingController extends Controller
     {
         $query = $service->pricings()->with('translations')->orderBy('sort_order');
 
+        activity()
+            ->performedOn($service)
+            ->causedBy(auth()->user())
+            ->log('Fetched Service Pricing Plans for ' . $service->getTranslated('title'));
+
         return DataTables::of($query)
             ->addIndexColumn()
             ->addColumn('name', function ($row) {
@@ -56,6 +61,12 @@ class ServicePricingController extends Controller
             }
 
             DB::commit();
+
+            activity()
+                ->performedOn($pricing)
+                ->causedBy(auth()->user())
+                ->log('Added Pricing Plan to Service');
+
             return response()->json(['success' => 'Pricing plan added successfully.']);
         } catch (\Exception $e) {
             DB::rollBack();
@@ -90,6 +101,12 @@ class ServicePricingController extends Controller
             }
 
             DB::commit();
+
+            activity()
+                ->performedOn($pricing)
+                ->causedBy(auth()->user())
+                ->log('Updated Service Pricing Plan');
+
             return response()->json(['success' => 'Pricing plan updated successfully.']);
         } catch (\Exception $e) {
             DB::rollBack();
@@ -101,6 +118,12 @@ class ServicePricingController extends Controller
     {
         try {
             $pricing->delete();
+
+            activity()
+                ->performedOn($pricing)
+                ->causedBy(auth()->user())
+                ->log('Deleted Service Pricing Plan');
+
             return response()->json(['success' => 'Pricing plan deleted successfully.']);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);

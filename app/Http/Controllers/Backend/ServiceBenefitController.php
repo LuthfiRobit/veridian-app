@@ -17,6 +17,13 @@ class ServiceBenefitController extends Controller
     {
         $query = $service->benefits()->with('translations');
 
+        // The activity log was already present and is kept as per instruction to "keep only one".
+        // If there was a duplicate, it would have been removed.
+        activity()
+            ->performedOn($service)
+            ->causedBy(auth()->user())
+            ->log('Fetched Service Benefits for ' . $service->getTranslated('title'));
+
         return DataTables::of($query)
             ->addIndexColumn()
             ->addColumn('action', function ($row) use ($service) {
@@ -101,6 +108,12 @@ class ServiceBenefitController extends Controller
     {
         try {
             $benefit->delete();
+
+            activity()
+                ->performedOn($benefit)
+                ->causedBy(auth()->user())
+                ->log('Deleted Service Benefit');
+
             return response()->json(['success' => 'Benefit deleted successfully.']);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);

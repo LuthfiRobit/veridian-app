@@ -59,12 +59,20 @@ class TeamMemberController extends Controller
                 ->make(true);
         }
 
+        activity()
+            ->causedBy(auth()->user())
+            ->log('Viewed Team Members Management');
+
         return view('backend.team-members.index');
     }
 
     public function create()
     {
         $sortedLanguages = Language::where('is_active', true)->orderBy('is_default', 'desc')->get();
+        activity()
+            ->causedBy(auth()->user())
+            ->log('Accessing Create Team Member Page');
+
         return view('backend.team-members.create', compact('sortedLanguages'));
     }
 
@@ -86,6 +94,12 @@ class TeamMemberController extends Controller
     {
         $member = $this->teamMemberService->getTeamMemberById($id);
         $sortedLanguages = Language::where('is_active', true)->orderBy('is_default', 'desc')->get();
+        activity()
+            ->performedOn($member)
+            ->causedBy(auth()->user())
+            ->withProperties(['name' => $member->name])
+            ->log('Accessing Edit Team Member Page');
+
         return view('backend.team-members.edit', compact('member', 'sortedLanguages'));
     }
 
