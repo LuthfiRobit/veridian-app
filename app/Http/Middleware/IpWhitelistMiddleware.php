@@ -36,8 +36,8 @@ class IpWhitelistMiddleware
 
         $clientIp = $request->ip();
 
-        if (!in_array($clientIp, $activeIps)) {
-            abort(403, 'Unauthorized Access: Your IP is not whitelisted.');
+        if (in_array($clientIp, $activeIps)) {
+            abort(403, 'Access Blocked: Your IP is blacklisted.');
         }
 
         return $next($request);

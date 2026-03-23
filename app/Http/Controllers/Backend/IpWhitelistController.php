@@ -42,7 +42,7 @@ class IpWhitelistController extends Controller
     {
         try {
             $this->ipWhitelistService->createIpWhitelist($request->validated());
-            return response()->json(['success' => 'IP Whitelist created successfully.']);
+            return response()->json(['success' => 'IP Blocklist created successfully.']);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
@@ -58,7 +58,7 @@ class IpWhitelistController extends Controller
     {
         try {
             $this->ipWhitelistService->updateIpWhitelist($id, $request->validated());
-            return response()->json(['success' => 'IP Whitelist updated successfully.']);
+            return response()->json(['success' => 'IP Blocklist updated successfully.']);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
@@ -68,7 +68,7 @@ class IpWhitelistController extends Controller
     {
         try {
             $this->ipWhitelistService->deleteIpWhitelist($id);
-            return response()->json(['success' => 'IP Whitelist deleted successfully.']);
+            return response()->json(['success' => 'IP Blocklist deleted successfully.']);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }

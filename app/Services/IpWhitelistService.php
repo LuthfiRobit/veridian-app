@@ -40,7 +40,7 @@ class IpWhitelistService
             ->performedOn($ip)
             ->causedBy(auth()->user())
             ->withProperties(['ip_address' => $ip->ip_address, 'label' => $ip->label])
-            ->log('Created IP Whitelist');
+            ->log('Created IP Blocklist');
 
         return $ip;
     }
@@ -59,7 +59,7 @@ class IpWhitelistService
             ->performedOn($ip)
             ->causedBy(auth()->user())
             ->withProperties(['ip_address' => $ip->ip_address, 'changes' => $data])
-            ->log('Updated IP Whitelist');
+            ->log('Updated IP Blocklist');
 
         return $ip;
     }
@@ -76,7 +76,7 @@ class IpWhitelistService
             ->performedOn($ip)
             ->causedBy(auth()->user())
             ->withProperties(['ip_address' => $ip->ip_address])
-            ->log('Deleted IP Whitelist');
+            ->log('Deleted IP Blocklist');
 
         return $ip;
     }

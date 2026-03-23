@@ -62,14 +62,14 @@
             $('#saveBtn').val("create-ip");
             $('#id_ip_whitelist').val('');
             $('#ipForm').trigger("reset");
-            $('#modelHeading').html("Add New IP Address");
+            $('#modelHeading').html("Add IP to Blocklist");
             $('#ajaxModel').modal('show');
         });
 
         $('body').on('click', '.edit', function () {
             var id = $(this).data('id');
             $.get("{{ route('admin.ip-whitelists.index') }}" + '/' + id + '/edit', function (data) {
-                $('#modelHeading').html("Edit IP Address");
+                $('#modelHeading').html("Edit Blocked IP");
                 $('#saveBtn').val("edit-ip");
                 $('#ajaxModel').modal('show');
                 $('#id_ip_whitelist').val(data.id_ip_whitelist);
@@ -139,7 +139,7 @@
                             table.draw();
                             Swal.fire(
                                 'Deleted!',
-                                'Your file has been deleted.',
+                                'The IP has been removed from the blocklist.',
                                 'success'
                             )
                         },
