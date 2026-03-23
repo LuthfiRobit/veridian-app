@@ -120,10 +120,19 @@
                 function switchLang(direction) {
                     currentIndex = (currentIndex + direction + codes.length) % codes.length;
                     var newLocale = codes[currentIndex];
-                    // Replace locale segment in current URL path
                     var path = window.location.pathname;
-                    var newPath = path.replace(/^\/[a-z]{2}(\/|$)/, '/' + newLocale + '$1');
-                    window.location.href = newPath + window.location.hash;
+                    var search = window.location.search || '';
+                    var hash = window.location.hash || '';
+
+                    // Robustly replace or prepend locale segment
+                    var localePattern = /^\/([a-z]{2})(\/|$)/;
+                    var newPath;
+                    if (localePattern.test(path)) {
+                        newPath = path.replace(localePattern, '/' + newLocale + '$2');
+                    } else {
+                        newPath = '/' + newLocale + (path === '/' ? '' : path);
+                    }
+                    window.location.href = newPath + search + hash;
                 }
 
                 var prevBtn = link.querySelector('.lang-prev');
@@ -144,8 +153,11 @@
                     });
                 }
 
+                // Make the entire link clickable (cycles forward)
                 link.addEventListener('click', function (e) {
+                    // Only trigger if the actual arrows weren't clicked (they have stopPropagation)
                     e.preventDefault();
+                    switchLang(1);
                 });
             });
         });
