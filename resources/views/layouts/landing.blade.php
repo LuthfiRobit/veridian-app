@@ -13,7 +13,7 @@
     <meta property="og:title" content="@yield('og_title', __('meta.default_title'))">
     <meta property="og:description" content="@yield('og_description', __('meta.default_description'))">
     <meta property="og:url" content="@yield('og_url', url()->current())">
-    <meta property="og:image" content="@yield('og_image', asset('company-landing/assets/img/WEB-LOGO-ORIGINAL.png'))">
+    <meta property="og:image" content="@yield('og_image', asset('company-landing/assets/img/icon_logo_long.png'))">
     <meta property="og:site_name" content="Veridian Solutions">
     <meta property="og:locale" content="{{ app()->getLocale() }}">
 
@@ -22,14 +22,14 @@
     <meta name="twitter:title" content="@yield('twitter_title', __('meta.default_title'))">
     <meta name="twitter:description" content="@yield('twitter_description', __('meta.default_description'))">
     <meta name="twitter:image"
-        content="@yield('twitter_image', asset('company-landing/assets/img/WEB-LOGO-ORIGINAL.png'))">
+        content="@yield('twitter_image', asset('company-landing/assets/img/icon_logo_long.png'))">
 
     <!-- Canonical URL -->
     <link rel="canonical" href="@yield('canonical_url', url()->current())">
 
     <!-- Favicons -->
-    <link href="{{ asset('company-landing/assets/img/WEB-LOGO-SMALL-NO-NAME.png') }}" rel="icon">
-    <link href="{{ asset('company-landing/assets/img/WEB-LOGO-SMALL-NAME.png') }}" rel="apple-touch-icon">
+    <link href="{{ asset('company-landing/assets/img/icon_logo.png') }}" rel="icon">
+    <link href="{{ asset('company-landing/assets/img/icon_logo.png') }}" rel="apple-touch-icon">
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect">
