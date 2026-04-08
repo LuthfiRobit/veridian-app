@@ -83,6 +83,48 @@
                                 <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}"
                                     id="lang-{{ $language->code }}" role="tabpanel">
 
+                                    <h6 class="text-primary mb-3"><i class="ti ti-star me-1"></i> Hero Section</h6>
+                                    <div class="section-hint mb-3">
+                                        <i class="ti ti-info-circle"></i>
+                                        Ditampilkan di: <strong>Homepage → Hero Section (Bagian paling atas)</strong>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Hero Badge ({{ $language->code }})</label>
+                                        <input type="text"
+                                            class="form-control @error('translations.' . $language->code . '.hero_badge') is-invalid @enderror"
+                                            name="translations[{{ $language->code }}][hero_badge]"
+                                            value="{{ old('translations.' . $language->code . '.hero_badge', $t?->hero_badge) }}"
+                                            placeholder="Contoh: Digital Agency Premium">
+                                        @error('translations.' . $language->code . '.hero_badge')<div class="invalid-feedback">
+                                        {{ $message }}</div>@enderror
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Hero Title ({{ $language->code }}) @if($loop->first)<span
+                                        class="text-danger">*</span>@endif</label>
+                                        <input type="text"
+                                            class="form-control @error('translations.' . $language->code . '.hero_title') is-invalid @enderror"
+                                            name="translations[{{ $language->code }}][hero_title]"
+                                            value="{{ old('translations.' . $language->code . '.hero_title', $t?->hero_title) }}"
+                                            @if($loop->first) required @endif>
+                                        @error('translations.' . $language->code . '.hero_title')<div class="invalid-feedback">
+                                        {{ $message }}</div>@enderror
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Hero Description ({{ $language->code }}) @if($loop->first)<span
+                                        class="text-danger">*</span>@endif</label>
+                                        <textarea
+                                            class="form-control @error('translations.' . $language->code . '.hero_description') is-invalid @enderror"
+                                            name="translations[{{ $language->code }}][hero_description]"
+                                            rows="3" @if($loop->first) required @endif>{{ old('translations.' . $language->code . '.hero_description', $t?->hero_description) }}</textarea>
+                                        @error('translations.' . $language->code . '.hero_description')<div
+                                        class="invalid-feedback">{{ $message }}</div>@enderror
+                                    </div>
+
+                                    <hr class="my-4">
+
                                     <h6 class="text-primary mb-3"><i class="ti ti-info-circle me-1"></i> About Section</h6>
 
                                     <div class="mb-3">

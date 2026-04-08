@@ -49,6 +49,9 @@ class UpdateCompanyProfileRequest extends FormRequest
 
             // Translations
             'translations' => 'required|array',
+            'translations.*.hero_badge' => 'nullable|string|max:255',
+            'translations.*.hero_title' => 'nullable|string|max:255',
+            'translations.*.hero_description' => 'nullable|string',
             'translations.*.about_title' => 'nullable|string|max:255',
             'translations.*.about_subtitle' => 'nullable|string|max:255',
             'translations.*.about_lead_text' => 'nullable|string',
@@ -60,6 +63,8 @@ class UpdateCompanyProfileRequest extends FormRequest
             'translations.*.footer_description' => 'nullable|string',
 
             // Default language required
+            "translations.{$defaultCode}.hero_title" => 'required|string|max:255',
+            "translations.{$defaultCode}.hero_description" => 'required|string',
             "translations.{$defaultCode}.about_title" => 'required|string|max:255',
             "translations.{$defaultCode}.about_lead_text" => 'required|string',
             "translations.{$defaultCode}.mission_title" => 'required|string|max:255',
